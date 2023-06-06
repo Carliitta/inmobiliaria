@@ -9,8 +9,20 @@ const Usuarios = require("../models/Usuarios.js")
 route.get("/", async (req, res) => {
   const { ubicacion } = req.query;
   try {
-    const inmuebles = await Inmuebles.findAll(
-    );
+    const inmuebles = await Inmuebles.findAll({
+      include: [
+        {
+          model: Provincias,
+        },
+        {
+          model: Propiedad,
+        },
+        {
+          model: Usuarios,
+        },
+      ],
+    });
+
     if (ubicacion) {
       const busqueda = inmuebles.filter((el) =>
         el.ubicacion.toLowerCase().includes(ubicacion.toLowerCase())
@@ -19,8 +31,28 @@ route.get("/", async (req, res) => {
         ? res.status(200).json(busqueda)
         : res.status(400).json("no se encontraron datos");
     } else {
-      inmuebles.length
-        ? res.status(200).json(inmuebles)
+       const data = await inmuebles.map((i) => {
+      return {
+        id: i.id,
+        titulo: i.titulo,
+        descripcion: i.descripcion,
+        ambientes: i.ambientes,
+        superficie: i.superficie,
+        antiguedad:i.antiguedad,
+        fecha:i.fecha_publicacion,
+        ubicacion:i.ubicacion,
+        operacion:i.operacion,
+        precio: i.precio,
+        fotos: i.fotos,
+        propiedad: i.Propiedad.nombre,
+        provincia: i.Provincia.nombre_prov,
+        usuario:i.Usuario
+       
+      };
+    }); 
+  
+      data.length
+        ? res.status(200).json(data)
         : res.status(400).json({ msg: "La base de datos esta vacia" });
     }
   } catch (error) {

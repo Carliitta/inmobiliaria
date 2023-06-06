@@ -12,7 +12,7 @@ const sequelize = require("../database/db.js")
       allowNull: false,
     },
     descripcion: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     ubicacion: {
