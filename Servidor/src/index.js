@@ -5,7 +5,7 @@ const sequelize
 const  Usuarios = require("./models/Usuarios.js")  // importo  cada modelo
 const  Propiedad = require("./models/Propiedad.js")
 const  Provincias = require("./models/Provincias.js")
-const  Inmuebles = require("./models/Inmuebles.js")
+const  {Inmuebles} = require("./models/Inmuebles.js")
 
 //script para cargar datos a la Db por las dudas :x
 const initiateTables = async () => {
@@ -95,94 +95,9 @@ const initiateTables = async () => {
        )
      }
      //-------------------------------------//
-     const inmuebles = [
-        // Inmueble 1
-        {
-          titulo: "Terreno con rancho",
-          descripcion: "Casa en dos plantas, rodeada de áreas verdes en excelente estado de conservación, en Planta Baja, terraza con barra, Cocina, alacena sala amplia, comedor, cuarto de máquinas y 2 Recámaras con Baño completo y Closet.",
-          ubicacion: "guaraypo s/n",
-          fotos: "https://img10.naventcdn.com/avisos/18/00/56/69/13/18/1200x1200/134626070.jpg",
-          superficie: 5135,
-          precio: 6000,
-          antiguedad: "5 años",
-          ambientes: 8,
-          operacion: "venta",
-          propiedadId: 2,
-          usuarioId: 2,
-          provinciaId: 13
-        },
-        // Inmueble 2
-        {
-          titulo: "Departamento céntrico",
-          descripcion: "Hermoso departamento en el centro de la ciudad, con amplios espacios y excelente iluminación. Cuenta con 3 dormitorios, 2 baños, cocina equipada y sala de estar. Ideal para vivir en familia.",
-          ubicacion: "Av. Principal 123",
-          fotos: "https://blog.nexoinmobiliario.pe/wp-content/uploads/2021/12/ideas-decorar-balcon-departamento.jpg",
-          superficie: 120,
-          precio: 80000,
-          antiguedad: "10 años",
-          ambientes: 4,
-          operacion: "alquiler",
-          propiedadId: 3,
-          usuarioId: 1,
-          provinciaId: 6
-        },
-        // Inmueble 3
-        {
-          titulo: "Terreno en zona residencial",
-          descripcion: "Lote de terreno en una exclusiva zona residencial, rodeado de naturaleza y con hermosas vistas. Ideal para construir la casa de tus sueños.",
-          ubicacion: "Calle Los Robles",
-          fotos: "https://solopropiedades.com/wp-content/uploads/WPL/43975/img_20200214_165424.jpg",
-          superficie: 800,
-          precio: 120000,
-          antiguedad: "Nuevo",
-          ambientes: 0,
-          operacion: "venta",
-          propiedadId: 1,
-          usuarioId: 1,
-          provinciaId: 19
-        },
-           // Inmueble 4
-           {
-            titulo: "Casa de madera",
-            descripcion: "Encantadora casita de madera en venta, con diseño acogedor y estilo rústico. Perfecta para disfrutar de la tranquilidad y la naturaleza. Cuenta con todas las comodidades necesarias en sus 180 metros cuadrados. ¡No pierdas la oportunidad de tener tu refugio soñado",
-            ubicacion: "Barrio industrial 908",
-            fotos: "https://www.invico.gov.ar/Content/imagenes/vivienda%20de%20madera/madera2.jpg",
-            superficie: 1500,
-            precio: 8000,
-            antiguedad: "1 año",
-            ambientes: 3,
-            operacion: "venta",
-            propiedadId: 1,
-            usuarioId: 1,
-            provinciaId: 11
-          },
-        // Agrega más inmuebles aquí
-      ];
+  
       
     
-     for (let i = 0; i < inmuebles.length; i++) {
-        const inmueble = inmuebles[i];
-    
-        // Realizar las operaciones necesarias para agregar el inmueble a la base de datos
-        await Inmuebles.findOrCreate({
-          where:{
-
-            titulo: inmueble.titulo,
-            descripcion: inmueble.descripcion,
-            ambientes: inmueble.ambientes,
-            superficie: inmueble.superficie,
-            antiguedad: inmueble.antiguedad,
-            fecha_publicacion: Date.now(),
-            ubicacion: inmueble.ubicacion,
-            operacion: inmueble.operacion,
-            precio: inmueble.precio,
-            fotos: inmueble.fotos,
-            propiedadId: inmueble.propiedadId,
-            provinciaId: inmueble.provinciaId,
-          }
-
-        });
-      }
 }
 
 async function main () {
