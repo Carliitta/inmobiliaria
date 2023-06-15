@@ -19,10 +19,7 @@ const sequelize = require("../database/db.js")
       type: DataTypes.STRING,
       allowNull: false,
     },
-    fotos: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+   
     superficie: {
       type: DataTypes.DECIMAL,
       allowNull: false,
@@ -55,5 +52,19 @@ const sequelize = require("../database/db.js")
   });
 
 
+  const Fotos = sequelize.define('Fotos', {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  });
   
-module.exports = Inmuebles;
+  // Definir la asociación uno a muchos entre Inmuebles y Fotos
+  Inmuebles.hasMany(Fotos, { as: 'fotos', foreignKey: 'inmuebleId' });
+  Fotos.belongsTo(Inmuebles, { as: 'inmueble', foreignKey: 'inmuebleId' });
+module.exports = {Inmuebles, Fotos};

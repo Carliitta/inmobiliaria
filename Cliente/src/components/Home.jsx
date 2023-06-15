@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar } from "./Navbar";
 import Card from "./Card";
-import Filtros from "./Filtros";
+
 import Footer from "./Footer";
 import Paginado from "./Paginado";
 import { get_All_Inmuebles, clear_error } from "../Redux/actions";
@@ -21,22 +21,21 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{display:'block'}}>
       <Navbar />
-      <Filtros />
       <div className="container-sm pt-1  ">
         <div className="row">
           {error ? (
             <Mensaje />
           ) : inmuebles ? (
             inmuebles.map((inmueble) => (
-              <Card
-                key={inmueble.id}
+              <Card key={inmueble.id}
+                id={inmueble.id}
                 titulo={inmueble.titulo}
                 provincia={inmueble.provincia}
                 ubicacion={inmueble.ubicacion}
                 precio={inmueble.precio}
-                fotos={inmueble.fotos}
+                fotos={inmueble.fotos.url}
               />
             ))
           ) : (
@@ -56,9 +55,11 @@ const Home = () => {
       </div>
       <div
         className=" pt-2 "
-        style={{ bottom: "0", position: "absolute", width: "100%" }}
-      ></div>
-      <Footer />
+        style={{  bottom: '0', width: '100%' }}
+      >
+
+      <Footer  />
+      </div>
     </div>
   );
 };

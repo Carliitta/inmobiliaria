@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const route = Router();
 const { Op, where } = require("sequelize");
-const Inmuebles = require("../models/Inmuebles.js");
+const {Inmuebles, Fotos} = require("../models/Inmuebles.js");
 const Propiedad = require("../models/Propiedad.js");
 const Provincias = require("../models/Provincias.js");
 const Usuarios = require("../models/Usuarios.js")
@@ -11,6 +11,10 @@ route.get("/", async (req, res) => {
   try {
     const inmuebles = await Inmuebles.findAll({
       include: [
+        {
+          model: Fotos,
+          as: 'fotos', // Especifica el alias utilizado en la asociación
+        },
         {
           model: Provincias,
         },
@@ -43,14 +47,14 @@ route.get("/", async (req, res) => {
         ubicacion:i.ubicacion,
         operacion:i.operacion,
         precio: i.precio,
-        fotos: i.fotos,
+        fotos: i.fotos[0],
         propiedad: i.Propiedad.nombre,
         provincia: i.Provincia.nombre_prov,
         usuario:i.Usuario
        
       };
     }); 
-  
+ 
       data.length
         ? res.status(200).json(data)
         : res.status(400).json({ msg: "La base de datos esta vacia" });
@@ -78,7 +82,7 @@ route.post("/publicar", async (req, res) => {
     fecha_publicacion
   } = req.body;
   try {
-   const create = await Inmuebles.create({ titulo,
+   const InmuebleCreate = await Inmuebles.create({ titulo,
       ubicacion,
       precio,
       descripcion,
@@ -89,48 +93,34 @@ route.post("/publicar", async (req, res) => {
       operacion,
       fecha_publicacion:Date.now()})
 
-      let provincia = null;
-    if (provinciaId !== undefined) {
-      provincia = await Provincias.findOne({
-        where: {
-          id: provinciaId
-        }
-      });
+// Asociar las fotos al inmueble
+for (const fotoUrl of fotos) {
+  await Fotos.create({ url: fotoUrl, inmuebleId: InmuebleCreate.id });
+}
+
+     // Asociar provincia, propiedad y usuario si se proporcionaron los IDs
+     if (provinciaId) {
+      const provincia = await Provincias.findByPk(provinciaId);
+      if (provincia) {
+        await InmuebleCreate.setProvincia(provincia);
+      }
     }
 
-    let propiedad = null;
-    if (propiedadId !== undefined) {
-      propiedad = await Propiedad.findOne({
-        where: {
-          id: propiedadId
-        }
-      });
+    if (propiedadId) {
+      const propiedad = await Propiedad.findByPk(propiedadId);
+      if (propiedad) {
+        await InmuebleCreate.setPropiedad(propiedad);
+      }
     }
 
-    let usuario = null;
-    if (usuarioId !== undefined) {
-      usuario = await Usuarios.findOne({
-        where: {
-          id: usuarioId
-        }
-      });
+    if (usuarioId) {
+      const usuario = await Usuarios.findByPk(usuarioId);
+      if (usuario) {
+        await InmuebleCreate.setUsuario(usuario);
+      }
     }
 
-   // console.log(provincia, propiedad, usuario);
-
-    if (provincia) {
-      create.setProvincia(provincia);
-    }
-
-    if (propiedad) {
-      create.setPropiedad(propiedad);
-    }
-
-    if (usuario) {
-      create.setUsuario(usuario);
-    }
-
-      res.status(200).json("Publicado Correctamente!")
+    res.status(200).json("Publicado Correctamente!")
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
@@ -170,7 +160,24 @@ route.put("/:id", async (req, res) => {
 route.get("/:id", async (req,res)=>{
   const {id}= req.params
   try {
-    const detalle = await Inmuebles.findByPk(id)
+    const detalle = await Inmuebles.findByPk(id, {
+      include: [
+        {
+          model: Fotos,
+          as: 'fotos', // Especifica el alias utilizado en la asociación
+        },
+        {
+          model: Provincias,
+        },
+        {
+          model: Propiedad,
+        },
+        {
+          model: Usuarios,
+        },
+      ],
+    });
+
     if (detalle) {
       res.status(200).send(detalle);
     } else {

@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { search_Inmuebles,get_All_Inmuebles,clear_error } from "../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import Filtros from "../components/Filtros";
 
 export const Navbar = () => {
 const [search, setSearch]= useState('')
-
+const inmuebles = useSelector((state) => state.inmuebles);
 const [buscando, setBuscando] = useState(false);
 const dispatch= useDispatch()
   
@@ -23,7 +24,9 @@ dispatch(clear_error())
 dispatch(get_All_Inmuebles())
  }
   return (
-    <nav className="navbar navbar-expand-lg bg-secondary bg-gradient bg-opacity-10 ">
+    <>
+   
+    <nav className="navbar navbar-expand-lg fixed-top p-2 " style={{backgroundColor:'#bbdce1'}}>
       
       <div className="container-fluid ">
         <Link to="/" className=" w-10 ml-4" href="#" onClick={clearSearch} >
@@ -53,13 +56,13 @@ dispatch(get_All_Inmuebles())
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
             <li className="nav-item ">
               <Link
-                to="/inicio"
+                to="/"
                 className="nav-link 
              active"
                 aria-current="page"
                 href="#"
               >
-                Inicio
+               <strong> Inicio</strong>
               </Link>
             </li>
             <li className="nav-item">
@@ -68,7 +71,7 @@ dispatch(get_All_Inmuebles())
                 className="nav-link 
             "
               >
-                Contacto
+               <strong>Contacto</strong> 
               </Link>
             </li>
             <li className="nav-item dropdown">
@@ -80,7 +83,7 @@ dispatch(get_All_Inmuebles())
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Información
+                <strong> Información</strong>
               </Link>
               <ul className="dropdown-menu">
                 <li>
@@ -116,5 +119,11 @@ dispatch(get_All_Inmuebles())
         </div>
       </div>
     </nav>
+    <div style={{marginTop:'110px'}}>
+    {inmuebles && inmuebles.length > 0 && <Filtros />}
+
+    </div>
+    </>
+    
   );
 };

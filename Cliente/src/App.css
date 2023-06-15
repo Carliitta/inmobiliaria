@@ -36,10 +36,60 @@
     transform: rotate(360deg);
   }
 }
+/* Cambiar el color de la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 12px; /* Ancho de la barra de desplazamiento */
+ 
+}
+
+/* Cambiar el color del pulgar de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+  background-color: #1ba2c4da; /* Color del pulgar de la barra de desplazamiento */
+  border-radius: 10px;
+}
 
 /* ////stilos/hover//// */
 .card-hover:hover {
   transform: scale(1.01);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   filter: sepia(40%)
+}
+
+/* loading */
+.loadingDiv{
+  margin: 0;
+  background-position: 80px;
+  min-height: 800px;
+  display: block;
+  padding: 20px;
+}
+.loadingp{
+ 
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 20px;
+  color: rgb(7, 7, 7);
+  padding: 5px;
+ 
+}
+
+.spinner {
+  margin-left: 49%;
+  border: 4px solid #1ba2c4da;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: rgb(246, 249, 252);
+  animation: spin 1s ease infinite;
+ 
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
