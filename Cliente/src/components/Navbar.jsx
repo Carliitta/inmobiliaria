@@ -20,8 +20,8 @@ const dispatch= useDispatch()
       setSearch('')
  }
  const clearSearch=()=>{
-dispatch(clear_error())
-dispatch(get_All_Inmuebles())
+  dispatch(clear_error())
+  dispatch(get_All_Inmuebles())
  }
   return (
     <>
