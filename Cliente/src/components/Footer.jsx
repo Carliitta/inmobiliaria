@@ -4,7 +4,7 @@ import Logo from "../utils/logo.png";
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-    <footer className="footer bg-primary opacity-85 " style={{bottom: '0', height:'200px'}}>
+    <footer className="footer bg-primary opacity-85 " style={{ height:'200px'}}>
     <div className="container pt-3 " >
        <div className="container-fluid ">
         <Link to={"/"}   >

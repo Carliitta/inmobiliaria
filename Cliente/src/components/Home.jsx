@@ -21,9 +21,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{display:'block'}}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: "100vh" }}>
       <Navbar />
-      <div className="container-sm pt-1  ">
+      <div className="container-sm pt-1 flex-grow-1">
         <div className="row">
           {error ? (
             <Mensaje />
@@ -35,7 +35,7 @@ const Home = () => {
                 provincia={inmueble.provincia}
                 ubicacion={inmueble.ubicacion}
                 precio={inmueble.precio}
-                fotos={inmueble.fotos.url}
+                fotos={inmueble.fotos?.url}
               />
             ))
           ) : (
@@ -46,22 +46,19 @@ const Home = () => {
           )}
         </div>
       </div>
-      <div className="d-flex justify-content-center pt-4 ">
-       {/*  verifica si inmuebles existe y tiene un valor antes de evaluar la
-        condición inmuebles.length > 0. Si inmuebles es undefined o no tiene
-        valor asignado, la expresión se evaluará como false y el componente
-        Paginado no se renderizará. */}
+      <div className="d-flex justify-content-center pt-4">
+        {/* Verifica si inmuebles existe y tiene un valor antes de evaluar la
+          condición inmuebles.length > 0. Si inmuebles es undefined o no tiene
+          valor asignado, la expresión se evaluará como false y el componente
+          Paginado no se renderizará. */}
         {inmuebles && inmuebles.length > 0 && <Paginado />}
       </div>
-      <div
-        className=" pt-2 "
-        style={{  bottom: '0', width: '100%' }}
-      >
-
-      <Footer  />
+      <div style={{ marginTop: 'auto' }}>
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );
-};
+        }  
 
 export default Home;

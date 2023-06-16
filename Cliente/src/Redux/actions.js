@@ -3,11 +3,16 @@ import Swal from 'sweetalert2'
 export const TYPES={
     GET_INMUEBLES:'GET_INMUEBLES',
     GET_ALL_PROVINCIAS:'GET_ALL_PROVINCIAS',
+    GET_ALL_PROPIEDAD:'GET_ALL_PROPIEDAD',
     SEARCH_INMUEBLE:' SEARCH_INMUEBLE',
     ERROR_MENSAJE:'ERROR_MENSAJE',
     CLEAR_MENSAJE:'CLEAR_MENSAJE',
     GET_INMUEBLE_DETAIL:'GET_INMUEBLE_DETAIL',
-    FILTRAR_PROVINCIAS:'FILTRAR_PROVINCIAS'
+    FILTRAR_PROVINCIAS:'FILTRAR_PROVINCIAS',
+    FILTRAR_OPERACION:'FILTRAR_OPERACION',
+    FILTRAR_PROPIEDAD:'FILTRAR_PROPIEDAD',
+    FILTRAR_PECIO:'FILTRAR_PECIO',
+    LIMPIAR_FILTROS:' LIMPIAR_FILTROS'
 }
 
 export const get_All_Inmuebles = () => {
@@ -34,6 +39,21 @@ export const get_All_Inmuebles = () => {
         dispatch({ 
             type: TYPES.GET_ALL_PROVINCIAS,
             payload: prov
+         });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };
+  export const get_All_Propiedad = () => {
+    return async (dispatch) => {
+      try {
+        const response = await axios.get("http://localhost:3001/propiedad");
+        const prop= response.data;
+      console.log(prop);
+        dispatch({ 
+            type: TYPES.GET_ALL_PROPIEDAD,
+            payload: prop
          });
       } catch (error) {
         console.log(error);
@@ -94,11 +114,48 @@ export const get_Inmueble = (id) => {
 export const filter_by_Provincias = (prov) => {
   return (dispatch) => {
     
-      dispatch({ 
-          type: TYPES.FILTRAR_PROVINCIAS,
-          payload:prov
-       });
-   
+  dispatch({ 
+      type: TYPES.FILTRAR_PROVINCIAS,
+      payload:prov
+    });
+  };
+};
+
+export const filter_by_Operacion = (op) => {
+  return (dispatch) => {
     
+  dispatch({ 
+      type: TYPES.FILTRAR_OPERACION,
+      payload:op
+    });
+  };
+};
+export const filter_by_propiedad = (prop) => {
+  return (dispatch) => {
+    
+  dispatch({ 
+      type: TYPES.FILTRAR_PROPIEDAD,
+      payload:prop
+    });
+  };
+};
+
+export const filter_by_precio = (precio) => {
+  return (dispatch) => {
+    
+  dispatch({ 
+      type: TYPES.FILTRAR_PECIO,
+      payload:precio
+    });
+  };
+};
+
+export const filter_clear = () => {
+  return (dispatch) => {
+    
+  dispatch({ 
+      type: TYPES.LIMPIAR_FILTROS,
+     
+    });
   };
 };

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Paginado = () => {
   return (
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example" style={{ zIndex: 1 }}>
     <ul className="pagination">
       <li className="page-item">
         <a className="page-link" href="#" aria-label="Previous">

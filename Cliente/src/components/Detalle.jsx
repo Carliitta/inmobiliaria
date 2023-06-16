@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import { get_Inmueble } from "../Redux/actions";
 import {BsFillArrowLeftSquareFill} from "react-icons/bs"
 import Footer from "../components/Footer"
+import ContactoForm from "./ContactoForm";
 const Detalle = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -18,12 +19,24 @@ const Detalle = () => {
     dispatch(get_Inmueble(id));
   }, []);
 
+  if(!detail.length){
+   
+      <div className="loadingDiv">
+      <p className="spinner"></p>
+      <p className="loadingp">Cargando...</p>
+     </div>
+  }
+
   return (
     <>
     <Link to={"/"}>
         <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px', color:'#1ba2c4da'}}/>
     </Link>
-    <div className="container p-2 " style={{ width: "800px", height: "400px" }}>
+    
+      
+    
+    <h3 style={{textAlign:'center'}} >{detail.titulo}</h3> 
+    <div className="container p-2 " style={{ display:'flex', justifyContent:'center'}}>
       <div
         id="carouselExampleAutoplaying"
         className="carousel slide "
@@ -40,7 +53,7 @@ const Detalle = () => {
               <img
                 src={el.url}
                 alt={`Slide ${index}`}
-                style={{ width: "950px", height: "400px", objectFit: "cover" }}
+                style={{ width: "1100px", height: "400px", objectFit: "cover", textAlign:'center' }}
               />
             </div>
           ))}
@@ -71,6 +84,7 @@ const Detalle = () => {
         </button>
       </div>
     </div>
+
    {/* Informacion */}
       
       <div className="card text-center mx-auto mt-4 p-1 " style={{width:'1200px'}}>
@@ -78,7 +92,7 @@ const Detalle = () => {
 
        <p className="text-start">Fecha de publicación: {detail.fecha_publicacion?.slice(0,10)}</p>
         <p style={{textAlign:'right', fontWeight:'bolder', fontSize:'18px'}}>Precio: Usd${detail.precio}</p>
-        <h3 >{detail.titulo}</h3> 
+      
         <p style={{maxWidth:'1000px'}}>{detail.descripcion}</p>
       
         {/*  */}
@@ -107,9 +121,13 @@ const Detalle = () => {
             </div>
         </div>
         </div>
-                <button className="btn btn-info">Contactar con el vendedor</button>
+    
+      </div>
+      <div>
+        <ContactoForm/>
       </div>
       <Footer/>
+          
     </>
   );
 };
