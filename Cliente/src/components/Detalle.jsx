@@ -11,22 +11,33 @@ const Detalle = () => {
   const { id } = useParams();
   const detail = useSelector((state) => state.detalle);
   const [expanded, setExpanded] = useState(false);
+  const [loading, setLoading] = useState(true); // Estado de carga
 
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
-  useEffect(() => {
-    dispatch(get_Inmueble(id));
-  }, []);
 
-  if(!detail.length){
-   
+  useEffect(() => {
+    dispatch(get_Inmueble(id))
+      .then(() => {
+        setLoading(false); // Se establece el estado de carga en false una vez que se ha cargado el detalle
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false); // Se establece el estado de carga en false en caso de que ocurra un error
+      });
+  }, [dispatch, id]);
+
+  if (loading) {
+    return (
       <div className="loadingDiv">
-      <p className="spinner"></p>
-      <p className="loadingp">Cargando...</p>
-     </div>
+        <p className="spinner"></p>
+        <p className="loadingp">Cargando...</p>
+      </div>
+    );
   }
 
+ 
   return (
     <>
     <Link to={"/"}>

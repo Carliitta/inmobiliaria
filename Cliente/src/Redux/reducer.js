@@ -5,6 +5,7 @@ const initialState = {
   All_inmueble: [],
   detalle: [],
   propiedad:[],
+  user:[],
   error: "",
 };
 export function rootReducer(state = initialState, action) {
@@ -35,6 +36,11 @@ export function rootReducer(state = initialState, action) {
         ...state,
         detalle: action.payload,
       };
+      case TYPES.CREAR_USUARIO:
+        return {
+          ...state,
+        
+        };
     case TYPES.ERROR_MENSAJE:
       return {
         error: action.payload,
@@ -130,6 +136,16 @@ export function rootReducer(state = initialState, action) {
               return{
                 inmuebles:state.All_inmueble
               }
+              case  TYPES.LOGIN_SUCCESS:
+
+              window.localStorage.setItem('user-log', JSON.stringify(action.payload));
+    
+              console.log("action", action.payload)
+    
+              return{
+                ...state,
+                User: action.payload,
+            }
 
     default:
       return {

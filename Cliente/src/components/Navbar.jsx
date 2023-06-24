@@ -5,23 +5,32 @@ import { search_Inmuebles,get_All_Inmuebles,clear_error } from "../Redux/actions
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import Filtros from "../components/Filtros";
-
-export const Navbar = () => {
+import {AiOutlineUser} from "react-icons/ai"
+import CrearUsuario from "./CrearUsuario";
+import Login from "./Login";
+export const Navbar = ({isOpen, toggle}) => {
 const [search, setSearch]= useState('')
 const inmuebles = useSelector((state) => state.inmuebles);
 const [buscando, setBuscando] = useState(false);
+const [loggedInUser, setLoggedInUser] = useState(null);
+
 const dispatch= useDispatch()
-  
+
+const handleLoginSuccess = (user) => {
+  setLoggedInUser(user);
+};
  const buscarInmueble=(e)=>{
     e.preventDefault()
       setBuscando(true);
       dispatch(search_Inmuebles(search));
       setBuscando(false);
       setSearch('')
+      console.log(inmuebles);
  }
  const clearSearch=()=>{
   dispatch(clear_error())
   dispatch(get_All_Inmuebles())
+  
  }
   return (
     <>
@@ -65,15 +74,7 @@ const dispatch= useDispatch()
                <strong> Inicio</strong>
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                to="/contacto"
-                className="nav-link 
-            "
-              >
-               <strong>Contacto</strong> 
-              </Link>
-            </li>
+           
             <li className="nav-item dropdown">
               <Link
                 to="/informacion"
@@ -111,6 +112,18 @@ const dispatch= useDispatch()
                   </a>
                 </li>
               </ul>
+            </li>
+            <li className="nav-item">
+            <Link
+                onClick={toggle}
+                className="nav-link"
+                role="button"
+              
+                aria-expanded="false"
+              >
+                <strong> {loggedInUser? `Hola, ${loggedInUser.nombre}` : "Acceder"} <AiOutlineUser/></strong>
+              </Link>
+              <Login isOpen={isOpen} toggle={toggle} onLoginSuccess={handleLoginSuccess} />
             </li>
             <li className="nav-item">
               <a className="nav-link disabled">Públicar</a>

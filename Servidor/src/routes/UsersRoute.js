@@ -18,7 +18,7 @@ router.post("/registro", async (req, res, next) => {
 
     if (validate) {
       return res
-        .status(200)
+        .status(400)
         .send({ msg: "ya existe un usuario con el correo ingresado" });
     }
     // Crea un nuevo usuario utilizando el modelo Usuarios

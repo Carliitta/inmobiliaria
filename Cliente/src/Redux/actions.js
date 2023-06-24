@@ -12,7 +12,9 @@ export const TYPES={
     FILTRAR_OPERACION:'FILTRAR_OPERACION',
     FILTRAR_PROPIEDAD:'FILTRAR_PROPIEDAD',
     FILTRAR_PECIO:'FILTRAR_PECIO',
-    LIMPIAR_FILTROS:' LIMPIAR_FILTROS'
+    LIMPIAR_FILTROS:' LIMPIAR_FILTROS',
+    CREAR_USUARIO:'CREAR_USUARIO',
+    LOGIN_SUCCESS:'LOGIN_SUCCESS'
 }
 
 export const get_All_Inmuebles = () => {
@@ -155,7 +157,28 @@ export const filter_clear = () => {
     
   dispatch({ 
       type: TYPES.LIMPIAR_FILTROS,
-     
     });
   };
 };
+
+//registrarse y logearse
+export const registrarse= (data) => {
+return async (dispatch) => {
+  try {
+    await axios.post("http://localhost:3001/usuarios/registro",data);
+    dispatch({ 
+        type: TYPES.CREAR_USUARIO, 
+     });
+  } catch (error) {
+    throw error;
+  }
+};
+};
+export function LoginSuccess(data){
+  return async function(dispatch){
+    dispatch({
+      type:TYPES.LOGIN_SUCCESS,
+      payload: data
+    })
+  }
+}

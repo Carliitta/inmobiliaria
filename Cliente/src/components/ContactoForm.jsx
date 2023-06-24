@@ -1,10 +1,10 @@
 import React from 'react'
-
+import {BsEmojiWink} from "react-icons/bs"
 const ContactoForm = () => {
     return (
         <form style={{display:'flex', justifyContent:'center' }}>
             <div style={{padding:'10px', width:'700px'}}>
-             <legend>Mandanos un mensaje para mas informacion:</legend>
+             <legend>Envia un mensaje al vendedor para mas información <BsEmojiWink/></legend>
             
                 <label for="exampleFormControlInput1" class="form-label">Nombre</label>
                 <input type="text" class="form-control "  />
