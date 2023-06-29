@@ -14,7 +14,9 @@ export const TYPES={
     FILTRAR_PECIO:'FILTRAR_PECIO',
     LIMPIAR_FILTROS:' LIMPIAR_FILTROS',
     CREAR_USUARIO:'CREAR_USUARIO',
-    LOGIN_SUCCESS:'LOGIN_SUCCESS'
+    LOGIN_SUCCESS:'LOGIN_SUCCESS',
+    LOG_OUT:'LOG_OUT',
+    PUBLICAR_INMUEBLE: 'PUBLICAR_INMUEBLE',
 }
 
 export const get_All_Inmuebles = () => {
@@ -174,11 +176,37 @@ return async (dispatch) => {
   }
 };
 };
+
 export function LoginSuccess(data){
   return async function(dispatch){
+    window.localStorage.setItem("user-log", JSON.stringify(data))
+    console.log(data);
     dispatch({
       type:TYPES.LOGIN_SUCCESS,
       payload: data
     })
   }
 }
+export function LogOut(){
+  return async function(dispatch){
+    dispatch({
+      type:TYPES.LOG_OUT,
+    })
+  }
+}
+
+//PUBLICAR INMUEBLE
+export const publicar_Inmueble= (inmueble) => {
+  return async (dispatch) => {
+    try {
+     const inmueb=  await axios.post("http://localhost:3001/publicar",inmueble);
+     console.log(inmueb)
+      dispatch({ 
+          type: TYPES.PUBLICAR_INMUEBLE
+        
+       });
+    } catch (error) {
+      throw error;
+    }
+  };
+  };

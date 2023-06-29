@@ -16,6 +16,7 @@ const Home = () => {
 
   const inmuebles = useSelector((state) => state.inmuebles);
   const error = useSelector((state) => state.error);
+  const user = useSelector((state) => state.user);
   const [pagina, setPagina]= useState(1)
   const[verPorPagina , setVerPorPagina]=useState(3)
   const maximo = Math.ceil(inmuebles?.length/verPorPagina)
@@ -26,13 +27,15 @@ const Home = () => {
   };
   useEffect(() => {
     dispatch(get_All_Inmuebles());
-  }, []);
+   
+
+  }, [user]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: "100vh" }}>
       <Navbar isOpen={isModalOpen} toggle={toggleModal} />
     
-
+{/* { console.log(user)} */}
    
       <div className="container-sm pt-1 flex-grow-1">
         <div className="row">

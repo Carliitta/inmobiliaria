@@ -3,7 +3,7 @@ import Logo from "../utils/logo.png";
 import { Link } from "react-router-dom";
 import { search_Inmuebles,get_All_Inmuebles,clear_error } from "../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Filtros from "../components/Filtros";
 import {AiOutlineUser} from "react-icons/ai"
 import CrearUsuario from "./CrearUsuario";
@@ -11,13 +11,24 @@ import Login from "./Login";
 export const Navbar = ({isOpen, toggle}) => {
 const [search, setSearch]= useState('')
 const inmuebles = useSelector((state) => state.inmuebles);
+
 const [buscando, setBuscando] = useState(false);
 const [loggedInUser, setLoggedInUser] = useState(null);
 
 const dispatch= useDispatch()
 
+useEffect(() => {
+  // Check for logged-in user in local storage when the component mounts
+  const user = localStorage.getItem("loggedInUser");
+  if (user) {
+    setLoggedInUser(JSON.parse(user));
+  }
+}, []);
+
 const handleLoginSuccess = (user) => {
+  
   setLoggedInUser(user);
+  localStorage.setItem("loggedInUser", JSON.stringify(user));
 };
  const buscarInmueble=(e)=>{
     e.preventDefault()
@@ -63,17 +74,7 @@ const handleLoginSuccess = (user) => {
         </form>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-            <li className="nav-item ">
-              <Link
-                to="/"
-                className="nav-link 
-             active"
-                aria-current="page"
-                href="#"
-              >
-               <strong> Inicio</strong>
-              </Link>
-            </li>
+           
            
             <li className="nav-item dropdown">
               <Link
@@ -121,9 +122,9 @@ const handleLoginSuccess = (user) => {
               
                 aria-expanded="false"
               >
-                <strong> {loggedInUser? `Hola, ${loggedInUser.nombre}` : "Acceder"} <AiOutlineUser/></strong>
+                <strong className="login"> {loggedInUser? `Hola, ${loggedInUser.nombre}` : "Acceder"} <AiOutlineUser/></strong>
               </Link>
-              <Login isOpen={isOpen} toggle={toggle} onLoginSuccess={handleLoginSuccess} />
+              <Login isOpen={isOpen} toggle={toggle} onLoginSuccess={handleLoginSuccess} loggedInUser={loggedInUser}/>
             </li>
             <li className="nav-item">
               <a className="nav-link disabled">Públicar</a>

@@ -1,21 +1,23 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
 import { BsEyeSlash, BsEye } from "react-icons/bs";
 import AuthService from "../helpers/Auth";
-import { LoginSuccess } from '../Redux/actions';
+import { LoginSuccess, LogOut } from '../Redux/actions';
 import Swal from "sweetalert2";
 
-const Login = ({ isOpen, toggle, onLoginSuccess }) => {
+const Login = ({ isOpen, toggle, onLoginSuccess,loggedInUser }) => {
 
   const [user, setUser] = useState({
     correo: "",
     codigo: "",
   });
   const [seePassword, setSeePassword] = useState(false);
-
+  const existingUserLog = JSON.parse(window.localStorage.getItem("user-log"));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!existingUserLog);
+ 
   const handleUser = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
 
@@ -29,7 +31,7 @@ const Login = ({ isOpen, toggle, onLoginSuccess }) => {
       const data = {
         data_user: response.data.data.dataValues,
         token: response.data.data.token,
-      };
+      };                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
       if (!user.codigo || !user.correo) {
         return Swal.fire({
           icon: 'error',
@@ -39,15 +41,15 @@ const Login = ({ isOpen, toggle, onLoginSuccess }) => {
       } else {
 
         dispatch(LoginSuccess(data));
-     
-       // Llama a la función onLoginSuccess
-if (typeof onLoginSuccess === "function") {
-  onLoginSuccess(data.data_user);
-}
+
+        // Llama a la función onLoginSuccess
+        if (typeof onLoginSuccess === "function") {
+          onLoginSuccess(data.data_user);
+        }
         if (data.data_user.rol === "admin") {
           Swal.fire({
             icon: "success",
-            title: "Congratulations!",
+            title: "Bienvenido!",
             text: response.data.message,
             confirmButtonText: "Continue",
           });
@@ -56,11 +58,12 @@ if (typeof onLoginSuccess === "function") {
           Swal.fire({
 
             icon: "success",
-            title: "Congratulations!",
+            title: "Bienvenido!",
             text: response.data.message,
             confirmButtonText: "Continue",
           });
           navigate("/");
+          setIsLoggedIn(true); // Establecer isLoggedIn a true al iniciar sesión
         }
       }
     }).catch((response) => {
@@ -73,18 +76,35 @@ if (typeof onLoginSuccess === "function") {
     })
 
     toggle();
-   
-  };
 
+  };
+  const handleLogout = () => {
+    
+    dispatch(LogOut())
+    localStorage.removeItem("loggedInUser");
+    onLoginSuccess('')
+    setIsLoggedIn(false); // Establece isLoggedIn a false al cerrar sesión
+  
+  };
 
 
   return (
     <Modal isOpen={isOpen} toggle={toggle}>
-     
-      <ModalHeader toggle={toggle}> 
-       Acceder
+
+      <ModalHeader toggle={toggle}>
+      {
+        isLoggedIn ? "Sesion" :" Acceder"
+      } 
       </ModalHeader>
       <ModalBody>
+      {isLoggedIn ? ( // Mostrar el botón de cerrar sesión si isLoggedIn es true
+          <div>
+            <p>Has iniciado sesión correctamente.</p>
+            <Button color="primary" onClick={handleLogout}>
+              Cerrar sesión
+            </Button>
+          </div>
+        ) :
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Correo:</label>
           <input
@@ -117,17 +137,26 @@ if (typeof onLoginSuccess === "function") {
 
 
         </form>
+}
       </ModalBody>
-      <ModalFooter>
+      <ModalFooter style={{display: isLoggedIn ? 'none': 'block'}}>
+        
+      
         <Button color="primary" onClick={handleSubmit}>
           Ingresar
         </Button>{" "}
         <Button color="secondary" onClick={toggle}>
           Cancelar
         </Button>
+        
       </ModalFooter>
       <div style={{ margin: '5px', alignItems: 'center', textAlign: 'center' }}>
-        <Link style={{ textDecoration: 'none', fontSize: '18px' }} to="/crear_cuenta">No tengo cuenta, quiero registrarme </Link>
+        <Link style={{ textDecoration: 'none', fontSize: '18px' }} to="/crear_cuenta">
+        {
+        isLoggedIn ? "" :" No tengo cuenta, quiero registrarme "
+      } 
+         
+          </Link>
       </div>
     </Modal>
   )

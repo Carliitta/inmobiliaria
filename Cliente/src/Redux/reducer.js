@@ -4,8 +4,8 @@ const initialState = {
   provincias: [],
   All_inmueble: [],
   detalle: [],
-  propiedad:[],
-  user:[],
+  propiedad: [],
+  user: [],
   error: "",
 };
 export function rootReducer(state = initialState, action) {
@@ -21,11 +21,11 @@ export function rootReducer(state = initialState, action) {
         ...state,
         provincias: action.payload,
       };
-      case TYPES.GET_ALL_PROPIEDAD:
-        return {
-          ...state,
-          propiedad: action.payload,
-        };
+    case TYPES.GET_ALL_PROPIEDAD:
+      return {
+        ...state,
+        propiedad: action.payload,
+      };
     case TYPES.SEARCH_INMUEBLE:
       return {
         ...state,
@@ -36,11 +36,10 @@ export function rootReducer(state = initialState, action) {
         ...state,
         detalle: action.payload,
       };
-      case TYPES.CREAR_USUARIO:
-        return {
-          ...state,
-        
-        };
+    case TYPES.CREAR_USUARIO:
+      return {
+        ...state,
+      };
     case TYPES.ERROR_MENSAJE:
       return {
         error: action.payload,
@@ -65,87 +64,95 @@ export function rootReducer(state = initialState, action) {
         };
       }
 
-      case TYPES.FILTRAR_OPERACION:
-        if (action.payload === "todos") {
-          return {
-            ...state,
-            inmuebles: state.All_inmueble,
-          };
-       
-        }
-        else {
-          return {
-            ...state,
-            inmuebles: state.inmuebles.filter(
-              (el) => el.operacion === action.payload
-            ),
-          };
-        }
+    case TYPES.FILTRAR_OPERACION:
+      if (action.payload === "todos") {
+        return {
+          ...state,
+          inmuebles: state.All_inmueble,
+        };
+      } else {
+        return {
+          ...state,
+          inmuebles: state.inmuebles.filter(
+            (el) => el.operacion === action.payload
+          ),
+        };
+      }
 
-        case TYPES.FILTRAR_PROPIEDAD:
-          if (action.payload === "todos") {
-            return {
-              ...state,
-              inmuebles: state.All_inmueble,
-            };
-          } else {
-            return {
-              ...state,
-              inmuebles: state.inmuebles.filter(
-                (el) => el.propiedad === action.payload
-              ),
-            };
+    case TYPES.FILTRAR_PROPIEDAD:
+      if (action.payload === "todos") {
+        return {
+          ...state,
+          inmuebles: state.All_inmueble,
+        };
+      } else {
+        return {
+          ...state,
+          inmuebles: state.inmuebles.filter(
+            (el) => el.propiedad === action.payload
+          ),
+        };
+      }
+
+    case TYPES.FILTRAR_PECIO:
+      if (action.payload === "defecto") {
+        return {
+          ...state,
+          inmuebles: state.All_inmueble,
+        };
+      } else if (action.payload === "mayor") {
+        const sortedInmuebles = [state.inmuebles].sort((a, b) => {
+          if (parseFloat(a.precio) > parseFloat(b.precio)) {
+            return -1;
           }
+          if (parseFloat(a.precio) < parseFloat(b.precio)) {
+            return 1;
+          }
+          return 0;
+        });
+        return {
+          ...state,
+          inmuebles: sortedInmuebles,
+        };
+      } else {
+        const sortedInmuebles = [...state.inmuebles].sort((a, b) => {
+          if (parseFloat(a.precio) < parseFloat(b.precio)) {
+            return -1;
+          }
+          if (parseFloat(a.precio) > parseFloat(b.precio)) {
+            return 1;
+          }
+          return 0;
+        });
+        return {
+          ...state,
+          inmuebles: sortedInmuebles,
+        };
+      }
+    case TYPES.LIMPIAR_FILTROS:
+      return {
+        inmuebles: state.All_inmueble,
+      };
+    //SESION
+    case TYPES.LOGIN_SUCCESS:
+     
 
-          case TYPES.FILTRAR_PECIO:
-            if (action.payload === "defecto") {
-              return {
-                ...state,
-                inmuebles: state.All_inmueble,
-              };
-            } else if (action.payload === "mayor") {
-              const sortedInmuebles = [state.inmuebles].sort((a, b) => {
-                if (parseFloat(a.precio) > parseFloat(b.precio)) {
-                  return -1;
-                }
-                if (parseFloat(a.precio) < parseFloat(b.precio)) {
-                  return 1;
-                }
-                return 0;
-              });
-              return {
-                ...state,
-                inmuebles: sortedInmuebles
-              };
-            }else{
-              const sortedInmuebles = [...state.inmuebles].sort((a, b) => {
-                if (parseFloat(a.precio) < parseFloat(b.precio)) {
-                  return -1;
-                }
-                if (parseFloat(a.precio) > parseFloat(b.precio)) {
-                  return 1;
-                }
-                return 0;
-              });
-              return {
-                ...state,
-                inmuebles: sortedInmuebles
-              };
-            }
-            case TYPES.LIMPIAR_FILTROS:
-              return{
-                inmuebles:state.All_inmueble
-              }
-              case  TYPES.LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case TYPES.LOG_OUT:
+      window.localStorage.removeItem("user-log");
 
-              window.localStorage.setItem('user-log', JSON.stringify(action.payload));
-    
-              console.log("action", action.payload)
-    
-              return{
-                ...state,
-                User: action.payload,
-            }
+      return {
+        ...state,
+        user: {},
+      };
+      case TYPES.PUBLICAR_INMUEBLE:
+        return {
+          ...state,
+        
+        };
 
     default:
       return {
