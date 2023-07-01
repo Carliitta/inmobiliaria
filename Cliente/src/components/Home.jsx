@@ -27,7 +27,7 @@ const Home = () => {
   };
   useEffect(() => {
     dispatch(get_All_Inmuebles());
-   
+    console.log(user.data_user);
 
   }, [user]);
 

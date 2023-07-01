@@ -1,29 +1,36 @@
 
 import React, { useState } from 'react';
 import {BsFillTrashFill} from "react-icons/bs"
+import axios from 'axios';
 const ImageUpload = ({selected}) => {
   const [previewImages, setPreviewImages] = useState([]);
 
-  const handleImageChange = (event) => {
-   
+  const handleImageChange = async(event) => {
+ 
     const files = event.target.files;
-    const images = [];
+  const images = [];
 
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "inmuebles");
 
-      reader.onload = (e) => {
-        images.push(e.target.result);
-        if (images.length === files.length) {
-          setPreviewImages(images);
-        }
-      };
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/dwfhsitwe/image/upload",
+      data
+    );
+    const imageUrl = response.data.secure_url;
 
-      reader.readAsDataURL(files[i]);
-    }
-    selected(files)
+    images.push(imageUrl);
+  }
+
+  setPreviewImages(images);
+  selected(images); // Actualiza el estado selectImg con las URL de las imágenes
+  
+  
   };
-
+ 
   const handleImageDelete = (index) => {
     const updatedImages = [...previewImages];
     updatedImages.splice(index, 1);

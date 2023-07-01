@@ -15,7 +15,7 @@ const Login = ({ isOpen, toggle, onLoginSuccess,loggedInUser }) => {
     codigo: "",
   });
   const [seePassword, setSeePassword] = useState(false);
-  const existingUserLog = JSON.parse(window.localStorage.getItem("user-log"));
+  const existingUserLog = JSON.parse(window.localStorage.getItem("loggedInUser"));
   const [isLoggedIn, setIsLoggedIn] = useState(!!existingUserLog);
  
   const handleUser = (e) => {

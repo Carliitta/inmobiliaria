@@ -66,7 +66,6 @@ route.get("/", async (req, res) => {
 //POST INMUEBLE
 route.post("/publicar", async (req, res) => {
   const {
-  
     titulo,
     ubicacion,
     precio,
@@ -81,25 +80,31 @@ route.post("/publicar", async (req, res) => {
     usuarioId,
     fecha_publicacion
   } = req.body;
+
   try {
-   const InmuebleCreate = await Inmuebles.create({ titulo,
+    const InmuebleCreate = await Inmuebles.create({
+      titulo,
       ubicacion,
       precio,
       descripcion,
       superficie,
-      fotos,
       antiguedad,
       ambientes,
       operacion,
-      fecha_publicacion:Date.now()})
+      fecha_publicacion: Date.now()
+    });
 
-// Asociar las fotos al inmueble
-for (const fotoUrl of fotos) {
-  await Fotos.create({ url: fotoUrl, inmuebleId: InmuebleCreate.id });
-}
+   // Crear y asociar las fotos al inmueble
+const fotosCreatePromises = fotos.map((fotoUrl) => {
+  return Fotos.create({ url: fotoUrl })
+    .then((foto) => InmuebleCreate.addFoto(foto));
+});
 
-     // Asociar provincia, propiedad y usuario si se proporcionaron los IDs
-     if (provinciaId) {
+// Esperar a que se completen todas las promesas de creación y asociación de las fotos
+await Promise.all(fotosCreatePromises);
+
+    // Asociar provincia, propiedad y usuario si se proporcionaron los IDs
+    if (provinciaId) {
       const provincia = await Provincias.findByPk(provinciaId);
       if (provincia) {
         await InmuebleCreate.setProvincia(provincia);
@@ -120,11 +125,12 @@ for (const fotoUrl of fotos) {
       }
     }
 
-    res.status(200).json("Publicado Correctamente!")
+    res.status(200).json("Publicado Correctamente!");
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
 });
+
 //put inmueble
 route.put("/:id", async (req, res) => {
  

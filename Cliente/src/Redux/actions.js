@@ -199,7 +199,7 @@ export function LogOut(){
 export const publicar_Inmueble= (inmueble) => {
   return async (dispatch) => {
     try {
-     const inmueb=  await axios.post("http://localhost:3001/publicar",inmueble);
+     const inmueb=  await axios.post("http://localhost:3001/inmuebles/publicar",inmueble);
      console.log(inmueb)
       dispatch({ 
           type: TYPES.PUBLICAR_INMUEBLE
