@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const router = Router();
 const bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
+const { route } = require("./InmueblesRuta.js");
 
 router.post("/registro", async (req, res, next) => {
   const { nombre, correo, codigo, rol, estado } = req.body;
@@ -94,9 +95,39 @@ router.put("/banned/:id", async (req, res) => {
       await Usuarios.update({ enabled: true }, { where: { id: id } });
       res.send("Usuario habiitado");
     }
-  } catch (err) {
+  } catch (error) {
     res.status(400).send(error.message);
   }
 });
-
+//user puut
+router.put("/editar/:id", async (req,res)=>{
+  
+  try{
+    const edit = await Usuarios.findOne({
+      where: {
+        id: req.params.id
+      }
+  
+    });
+     
+    if (edit) {
+    // se crea una copia de los datos del cuerpo de la solicitud usando { ...req.body } y se almacena en data.
+      let data = { ...req.body }
+    // se obtienen las claves (propiedades) del objeto data usando Object.keys(data).
+      let keys = Object.keys(data);
+   //Se itera sobre las claves utilizando keys.forEach(k => { ... }). Dentro del bucle, se asignan los valores correspondientes 
+   //de data a las propiedades del objeto edit utilizando edit[k] = data[k].
+      keys.forEach(k => {
+        edit[k] = data[k]
+      });
+  
+      await edit.save()
+  
+      res.status(200).send("Usuario modificado correctamente!")
+    } else {
+      res.status(404).send("not found")
+    }}catch(error){
+      res.status(400).json({error: error.message})
+    }
+})
 module.exports = router;

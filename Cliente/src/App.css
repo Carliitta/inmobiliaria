@@ -44,7 +44,7 @@
 
 /* Cambiar el color del pulgar de la barra de desplazamiento */
 ::-webkit-scrollbar-thumb {
-  background-color: #1ba2c4da; /* Color del pulgar de la barra de desplazamiento */
+  background-color: #0cd5f8fd; /* Color del pulgar de la barra de desplazamiento */
   border-radius: 10px;
 }
 

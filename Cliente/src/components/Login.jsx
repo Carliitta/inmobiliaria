@@ -70,7 +70,7 @@ const Login = ({ isOpen, toggle, onLoginSuccess,loggedInUser }) => {
       console.log(response)
       return Swal.fire({
         icon: 'error',
-        title: 'Something went wrong',
+        title: 'Ups, ocurrio un error',
         text: response.response.data.message,
       })
     })

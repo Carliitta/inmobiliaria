@@ -9,7 +9,7 @@ const  {Inmuebles} = require("./models/Inmuebles.js")
 
 //script para cargar datos a la Db por las dudas :x
 const initiateTables = async () => {
-    let usuarios=[
+   /*  let usuarios=[
         {
             nombre:'carlii',
             codigo:"4092",
@@ -37,7 +37,7 @@ const initiateTables = async () => {
 
           }
         })
-    }
+    } */
     //-------------------------------//
     let provincias = [
       {nombre_prov:'Buenos Aires'}, 

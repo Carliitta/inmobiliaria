@@ -50,7 +50,7 @@ route.get("/", async (req, res) => {
         fotos: i.fotos[0],
         propiedad: i.Propiedad.nombre,
         provincia: i.Provincia.nombre_prov,
-        usuario:i.Usuario
+        usuario:i.Usuario.id
        
       };
     }); 
@@ -191,6 +191,40 @@ route.get("/:id", async (req,res)=>{
     }
   } catch (error) {
     res.status(400).json({error: error.message})
+  }
+})
+
+///
+route.get("/publicaciones/:id", async (req,res)=>{
+  try {
+    
+    const id= req.params.id
+    const publicacion = await Inmuebles.findAll({
+      where: {
+        usuarioId:id
+      }
+    })
+    publicacion.length?
+    res.status(200).send(publicacion):
+    res.status(400).json({msg:"no se encontraron publicaciones" })
+  } catch (error) {
+    res.status(400).json({msg: error.message})
+  }
+})
+
+route.delete("/publicaciones/:id", async(req,res)=>{
+  try {
+    const publicacion= Inmuebles.destroy({
+     where :{
+       id: req.params.id
+     }
+    })
+   
+    res.status(200).json({msg:"Publicacion eliminada con exito!"})
+   
+    
+  } catch (error) {
+    res.status(400).json({msg:"Error al eliminar publicacion "})
   }
 })
 

@@ -102,12 +102,14 @@ const Publicar = () => {
   }
 
   return (
-    <div style={{backgroundColor:'#6febadda'}} >
+    <>
+  
+    <div className="d-flex flex-column min-vh-100" style={{backgroundColor:'#6febadda' , justifyContent: 'center', alignItems: 'center'}} >
         <Link to={"/"}>
-        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px', color:'#1ba2c4da'}}/>
+        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px',color:'rgb(7 122 245)'}}/>
     </Link>
       {console.log(selectImg)}
-      <form className='container p-3 bg-info mt-3 mb-3 ' style={{ width: '600px', borderRadius:'20px' }} onSubmit={submitForm}>
+      <form className='container p-3 bg-info mt-3 mb-3 ' style={{ width: '700px', borderRadius:'20px' }} onSubmit={submitForm}>
       <h3 className='text-center p-1 '>Formulario de publicacion</h3>
         <div className="mb-3">
           <label for="" className="form-label">Titulo</label>
@@ -140,7 +142,7 @@ const Publicar = () => {
         </div>
         <div className="mb-3">
           <label for="" className="form-label">Superficie m2</label>
-          <input type="number" className="form-control" name='superficie' value={formData.superficie} onChange={handleChange} />
+          <input type="number" min='0' className="form-control" name='superficie' value={formData.superficie} onChange={handleChange} />
         </div>
         <div className="mb-3">
           <label for="" className="form-label">Precio USD</label>
@@ -180,8 +182,9 @@ const Publicar = () => {
         <button type="submit" className="btn btn-success btn-lg ">Publicar Inmueble</button>
        </div>    
       </form>
-<Footer />
     </div>
+<Footer />
+    </>
   )
 }
 
