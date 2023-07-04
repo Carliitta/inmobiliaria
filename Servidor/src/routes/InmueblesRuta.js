@@ -30,9 +30,9 @@ route.get("/", async (req, res) => {
     if (ubicacion) {
       const busqueda = inmuebles.filter((el) =>
         el.ubicacion.toLowerCase().includes(ubicacion.toLowerCase())
-      );
-      busqueda.length
-        ? res.status(200).json(busqueda)
+      )
+        busqueda.length?
+         res.status(200).json(busqueda)
         : res.status(400).json("no se encontraron datos");
     } else {
        const data = await inmuebles.map((i) => {

@@ -58,12 +58,12 @@ const dispatch = useDispatch()
   
 
   return (
-   <div className="card p-2" style={{ display:'flex',  alignItems: 'center',
-   justifyContent: 'center',}}>
-      <Link to={"/"}>
-        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginBottom:'5px', color:'#1ba2c4da'}}/>
+   <div  className="d-flex flex-column min-vh-100" style={{backgroundColor:'#6febadda'}}>
+   
+      <Link to={"/"} style={{display :'flex', justifyContent:'center'}}>
+        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px', color:'#1ba2c4da', marginTop:"3px"}}/>
     </Link>
-        <form className="card p-5" style={{backgroundColor:'#1ba2c4da'}}  onSubmit={handleSubmit}>
+        <form className="container p-4 bg-info mt-3 mb-3" style={{ width: '400px', borderRadius:'20px' }}onSubmit={handleSubmit}>
             <h3 className=" mb-4 text-light">Formulario de registro <IoIosCreate/></h3>
           <label className="text-white" htmlFor="username">Nombre:</label>
           <input

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import ImageUpload from './SubirFotos'
+import {  Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
 import { get_All_Provincias, get_All_Propiedad, publicar_Inmueble } from '../Redux/actions'
 import Swal from 'sweetalert2';
+import {BsFillArrowLeftSquareFill} from "react-icons/bs"
+import Footer from './Footer';
 const Publicar = () => {
 
   const provincias = useSelector((state) => state.provincias);
@@ -99,10 +102,13 @@ const Publicar = () => {
   }
 
   return (
-    <div >
-      <h3 className='text-center p-3'>Formulario de publicacion</h3>
+    <div style={{backgroundColor:'#6febadda'}} >
+        <Link to={"/"}>
+        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px', color:'#1ba2c4da'}}/>
+    </Link>
       {console.log(selectImg)}
-      <form className='container p-3 ' style={{ width: '600px' }} onSubmit={submitForm}>
+      <form className='container p-3 bg-info mt-3 mb-3 ' style={{ width: '600px', borderRadius:'20px' }} onSubmit={submitForm}>
+      <h3 className='text-center p-1 '>Formulario de publicacion</h3>
         <div className="mb-3">
           <label for="" className="form-label">Titulo</label>
           <input type="text" className="form-control" name='titulo' value={formData.titulo} onChange={handleChange} />
@@ -164,15 +170,17 @@ const Publicar = () => {
           </select>
         </div>
         <div className="mb-3">
-          <label for="" className="form-label">Antiguedad</label>
+          <label for="" className="form-label">Antiguedad (Meses/Años/a estrenar..)</label>
           <input name='antiguedad' type="text" className="form-control" value={formData.antiguedad} onChange={handleChange} />
         </div>
         <div className="mb-3">
           <ImageUpload selected={setSelectImg} />
         </div>
-        <button type="submit" className="btn btn-info">Publicar</button>
+        <div class="d-grid gap-2">
+        <button type="submit" className="btn btn-success btn-lg ">Publicar Inmueble</button>
+       </div>    
       </form>
-
+<Footer />
     </div>
   )
 }

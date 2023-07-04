@@ -82,7 +82,7 @@ const Login = ({ isOpen, toggle, onLoginSuccess,loggedInUser }) => {
     
     dispatch(LogOut())
     localStorage.removeItem("loggedInUser");
-    onLoginSuccess('')
+    onLoginSuccess(null)
     setIsLoggedIn(false); // Establece isLoggedIn a false al cerrar sesión
   
   };
@@ -153,7 +153,7 @@ const Login = ({ isOpen, toggle, onLoginSuccess,loggedInUser }) => {
       <div style={{ margin: '5px', alignItems: 'center', textAlign: 'center' }}>
         <Link style={{ textDecoration: 'none', fontSize: '18px' }} to="/crear_cuenta">
         {
-        isLoggedIn ? "" :" No tengo cuenta, quiero registrarme "
+        isLoggedIn ? null :" No tengo cuenta, quiero registrarme "
       } 
          
           </Link>

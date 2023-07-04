@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import Filtros from "../components/Filtros";
 import {AiOutlineUser} from "react-icons/ai"
+import {BsSearch} from "react-icons/bs"
 import CrearUsuario from "./CrearUsuario";
 import Login from "./Login";
 export const Navbar = ({isOpen, toggle}) => {
@@ -16,13 +17,14 @@ const [buscando, setBuscando] = useState(false);
 const [loggedInUser, setLoggedInUser] = useState(null);
 
 const dispatch= useDispatch()
+const user = localStorage.getItem("loggedInUser");
 
 useEffect(() => {
   // Check for logged-in user in local storage when the component mounts
-  const user = localStorage.getItem("loggedInUser");
   if (user) {
     setLoggedInUser(JSON.parse(user));
   }
+  console.log("usuario",user);
 }, []);
 
 const handleLoginSuccess = (user) => {
@@ -46,7 +48,7 @@ const handleLoginSuccess = (user) => {
   return (
     <>
    
-    <nav className="navbar navbar-expand-lg fixed-top p-2 " style={{backgroundColor:'#bbdce1'}}>
+    <nav className="navbar navbar-expand-lg fixed-top p-2 " style={{backgroundColor:'#6febadda'}}>
       
       <div className="container-fluid ">
         <Link to="/" className=" w-10 ml-4" href="#" onClick={clearSearch} >
@@ -58,18 +60,22 @@ const handleLoginSuccess = (user) => {
           />
         </Link>
 
-        <form className="d-flex px-2 col-4" role="search" >
+        <form className="d-flex px-2 col-4" style={{position: "relative"}} role="search" >
           <input
+        style={{paddingLeft:'40px'}}
             className="form-control me-2 "
             type="search"
-            placeholder="Buscar por ubicacion.."
+            placeholder="Buscar por ubicacion/localidad.."
             aria-label="Search"
             value={search}
             onChange={(e)=>setSearch(e.target.value)}
           />
-          <button className="btn btn-outline-info text-black" type="submit" onClick={buscarInmueble}>
-            {buscando ? "Buscando..." : "Buscar"}
-            
+          <button style={{border:"none", background:'none',  position: "absolute",
+      top: "50%",
+      left: "10px",
+      transform: "translateY(-50%)",}} type="submit" onClick={buscarInmueble}>
+          {/*   {buscando ? "Buscando..." : "Buscar"} */}
+            <BsSearch style={{fontSize:"20px"}}/>
           </button>
         </form>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -89,28 +95,28 @@ const handleLoginSuccess = (user) => {
               </Link>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item " href="#">
+                  <Link className="dropdown-item " to={"/quienes-somos?"}>
                     Quiénes somos?
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Quiero vender
-                  </a>
+                <Link className="dropdown-item " to={"/quiero-vender"}>
+                    Quiero Vender
+                  </Link>
                 </li>
 
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Contactar
-                  </a>
+                <Link className="dropdown-item " to={"/soporte"}>
+                    Soporte
+                  </Link>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a className="dropdown-item " href="#">
-                    Desarrollador
-                  </a>
+                <Link className="dropdown-item " to={"/desarrollador"}>
+                    Desarrolladora
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -126,8 +132,11 @@ const handleLoginSuccess = (user) => {
               </Link>
               <Login isOpen={isOpen} toggle={toggle} onLoginSuccess={handleLoginSuccess} loggedInUser={loggedInUser}/>
             </li>
-            <li className="nav-item">
-              <a className="nav-link disabled">Públicar</a>
+          
+            <li className="nav-item" >
+              <Link  className={!loggedInUser?"nav-link disabled":"nav-link"} to={"/publicar"}  >
+               <strong>Públicar Inmueble</strong>  
+              </Link>
             </li>
           </ul>
         </div>

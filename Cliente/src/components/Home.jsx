@@ -27,7 +27,7 @@ const Home = () => {
   };
   useEffect(() => {
     dispatch(get_All_Inmuebles());
-    console.log(user.data_user);
+  
 
   }, [user]);
 
@@ -49,7 +49,7 @@ const Home = () => {
                 provincia={inmueble.provincia}
                 ubicacion={inmueble.ubicacion}
                 precio={inmueble.precio}
-                fotos={inmueble.fotos.url}
+                fotos={inmueble.fotos?.url ||inmueble.fotos[0]?.url }
               />
             ))
           ) : (
