@@ -5,11 +5,11 @@ import {BsFillArrowLeftSquareFill} from "react-icons/bs"
 const QuieroVender = () => {
   return (
     <>
-    <div className="d-flex flex-column min-vh-100" style={{backgroundColor:'#6febadda' , justifyContent: 'center', alignItems: 'center'}}>
+    <div className="d-flex flex-column min-vh-100" style={{ justifyContent: 'center', alignItems: 'center'}}>
          <Link to={"/"} style={{display :'flex', justifyContent:'center'}}>
-        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px', color:'rgb(7 122 245)', marginTop:"3px"}}/>
+        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px', color:'#80808096', marginTop:"3px"}}/>
     </Link>
-      <div className="card b-3 p-2 bg-info mb-2" style={{ width: '1200px', alignItems: 'center' }}>
+      <div className="card b-3 p-2  mb-2" style={{ width: '1200px', alignItems: 'center', backgroundColor:'#ffe307cf' }}>
         <h2 className="fw-bolder fs-3 mb-5">Quiero Vender</h2>
         <div style={{ padding: '40px' }}>
           <p className="fs-5">

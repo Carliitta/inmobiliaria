@@ -109,7 +109,7 @@ const Filtros = () => {
       </div>
       {/* Limpiar*/}
       <div style={{margin:'5px'}}>
-        <button onClick={LimpiarFiltros} className="btn btn-primary btn-sm ">Limpiar Filtros</button>
+        <button onClick={LimpiarFiltros} className="btn  btn-sm " style={{backgroundColor:'#80808096'}}>Limpiar Filtros</button>
       </div>
     </nav>
   );

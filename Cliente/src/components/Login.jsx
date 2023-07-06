@@ -89,14 +89,14 @@ const Login = ({ isOpen, toggle, onLoginSuccess,loggedInUser }) => {
 
 
   return (
-    <Modal isOpen={isOpen} toggle={toggle}>
+    <Modal isOpen={isOpen} toggle={toggle} >
 
-      <ModalHeader toggle={toggle}>
+      <ModalHeader toggle={toggle} >
       {
         isLoggedIn ? "Sesion" :" Acceder"
       } 
       </ModalHeader>
-      <ModalBody>
+      <ModalBody style={{backgroundColor:'#ffe307cf'}}>
       {isLoggedIn ? ( // Mostrar el botón de cerrar sesión si isLoggedIn es true
           <div>
             <p>Has iniciado sesión correctamente.</p>
@@ -139,10 +139,10 @@ const Login = ({ isOpen, toggle, onLoginSuccess,loggedInUser }) => {
         </form>
 }
       </ModalBody>
-      <ModalFooter style={{display: isLoggedIn ? 'none': 'block'}}>
+      <ModalFooter style={{display: isLoggedIn ? 'none': 'block' }}>
         
       
-        <Button color="primary" onClick={handleSubmit}>
+        <Button style={{backgroundColor:'black', color:"white"}} onClick={handleSubmit}>
           Ingresar
         </Button>{" "}
         <Button color="secondary" onClick={toggle}>

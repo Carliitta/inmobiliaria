@@ -17,6 +17,9 @@ export const TYPES={
     LOGIN_SUCCESS:'LOGIN_SUCCESS',
     LOG_OUT:'LOG_OUT',
     PUBLICAR_INMUEBLE: 'PUBLICAR_INMUEBLE',
+    ENVIAR_EMAIL:'ENVIAR_EMAIL',
+    ENVIAR_EMAIL_SOPORT:'ENVIAR_EMAIL_SOPORT',
+
 }
 
 export const get_All_Inmuebles = () => {
@@ -209,4 +212,36 @@ export const publicar_Inmueble= (inmueble) => {
       throw error;
     }
   };
+  };
+
+  export const sendEmail = (id,data) => {
+    return async (dispatch) => {
+      try {
+        await axios.post(`http://localhost:3001/contactar/${id}`, data); 
+      
+        dispatch({ 
+            type: TYPES.ENVIAR_EMAIL,
+         });
+      } catch (error) {
+        throw error;
+      }
+    };
+  };
+
+  
+  export const sendEmailSoport = (data) => {
+    return async (dispatch) => {
+      try {
+        await axios.post(`http://localhost:3001/contactar/soporte`,data); 
+    
+        dispatch({ 
+            type: TYPES.ENVIAR_EMAIL_SOPORT,
+         });
+      } catch (error) {
+       
+          //console.log("Ocurrió un error en la solicitud:", error.message);
+          throw error;
+        
+      }
+    };
   };

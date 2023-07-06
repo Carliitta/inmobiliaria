@@ -48,7 +48,7 @@ const handleLoginSuccess = (user) => {
   return (
     <>
    
-    <nav className="navbar navbar-expand-lg fixed-top p-2 " style={{backgroundColor:'#6febadda'}}>
+    <nav className="navbar navbar-expand-lg fixed-top p-2 " style={{backgroundColor:'#ffe307cf'}}>
       
       <div className="container-fluid ">
         <Link to="/" className=" w-10 ml-4" href="#" onClick={clearSearch} >

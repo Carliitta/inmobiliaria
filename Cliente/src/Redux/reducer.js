@@ -153,6 +153,17 @@ export function rootReducer(state = initialState, action) {
           ...state,
         
         };
+        case TYPES.ENVIAR_EMAIL:
+          return {
+            ...state,
+          
+          };
+          case TYPES.ENVIAR_EMAIL_SOPORT:
+          return {
+            ...state,
+          
+          };
+
 
     default:
       return {

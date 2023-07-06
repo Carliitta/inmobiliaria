@@ -104,27 +104,27 @@ const Publicar = () => {
   return (
     <>
   
-    <div className="d-flex flex-column min-vh-100" style={{backgroundColor:'#6febadda' , justifyContent: 'center', alignItems: 'center'}} >
+    <div className="d-flex flex-column min-vh-100" style={{ justifyContent: 'center', alignItems: 'center'}} >
         <Link to={"/"}>
-        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px',color:'rgb(7 122 245)'}}/>
+        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px',color:'#80808096'}}/>
     </Link>
       {console.log(selectImg)}
-      <form className='container p-3 bg-info mt-3 mb-3 ' style={{ width: '700px', borderRadius:'20px' }} onSubmit={submitForm}>
+      <form className='container p-3  mt-3 mb-3 ' style={{ width: '700px', borderRadius:'20px', backgroundColor:'#ffe307cf' }} onSubmit={submitForm}>
       <h3 className='text-center p-1 '>Formulario de publicacion</h3>
         <div className="mb-3">
-          <label for="" className="form-label">Titulo</label>
+          <label htmlFor="" className="form-label">Titulo</label>
           <input type="text" className="form-control" name='titulo' value={formData.titulo} onChange={handleChange} />
         </div>
         <div className="mb-3">
-          <label for="" className="form-label">Descripcion</label>
+          <label htmlFor="" className="form-label">Descripcion</label>
           <textarea type="text" className="form-control" id="floatingTextarea" name='descripcion' value={formData.descripcion} onChange={handleChange} />
         </div>
         <div className="mb-3">
-          <label for="" className="form-label">Ubicacion/Localidad</label>
+          <label htmlFor="" className="form-label">Ubicacion/Localidad</label>
           <input type="text" className="form-control" name='ubicacion' value={formData.ubicacion} onChange={handleChange} />
         </div>
         <div className="mb-3">
-          <label for="" className="form-label">Cant. Ambientes</label>
+          <label htmlFor="" className="form-label">Cant. Ambientes</label>
           <input type="number" min="0" className="form-control" name='ambientes' value={formData.ambientes} onChange={handleChange} />
         </div>
         <div className="dropdown m-1">
@@ -141,11 +141,11 @@ const Publicar = () => {
           </select>
         </div>
         <div className="mb-3">
-          <label for="" className="form-label">Superficie m2</label>
+          <label htmlFor=""className="form-label">Superficie m2</label>
           <input type="number" min='0' className="form-control" name='superficie' value={formData.superficie} onChange={handleChange} />
         </div>
         <div className="mb-3">
-          <label for="" className="form-label">Precio USD</label>
+          <label htmlFor="" className="form-label">Precio USD</label>
           <input type="number" min="0" className="form-control" name='precio' value={formData.precio} onChange={handleChange} />
         </div>
         <div className="dropdown m-1">
@@ -172,14 +172,14 @@ const Publicar = () => {
           </select>
         </div>
         <div className="mb-3">
-          <label for="" className="form-label">Antiguedad (Meses/Años/a estrenar..)</label>
+          <label htmlFor="" className="form-label">Antiguedad (Meses/Años/a estrenar..)</label>
           <input name='antiguedad' type="text" className="form-control" value={formData.antiguedad} onChange={handleChange} />
         </div>
         <div className="mb-3">
           <ImageUpload selected={setSelectImg} />
         </div>
         <div class="d-grid gap-2">
-        <button type="submit" className="btn btn-success btn-lg ">Publicar Inmueble</button>
+        <button type="submit" className="btn btn-info btn-lg " style={{backgroundColor:'black', color:"white"}}>Publicar Inmueble</button>
        </div>    
       </form>
     </div>

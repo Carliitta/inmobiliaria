@@ -9,12 +9,12 @@ const Desarrollador = () => {
   return (
     <>
     
-    <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: '#6febadda', justifyContent: 'center', alignItems: 'center' }}>
+    <div className="d-flex flex-column min-vh-100" style={{ justifyContent: 'center', alignItems: 'center' }}>
       <Link to={"/"} style={{ display: 'flex', justifyContent: 'center' }}>
-        <BsFillArrowLeftSquareFill style={{ fontSize: '35px', marginBottom: '5px', color: 'rgb(7 122 245)', marginTop: "3px" }} />
+        <BsFillArrowLeftSquareFill style={{ fontSize: '35px', marginBottom: '5px', color: '#80808096', marginTop: "3px" }} />
       </Link>
 
-      <div className="card b-3 p-2 bg-info mb-2" style={{ width: '500px', alignItems: 'center' }}>
+      <div className="card b-3 p-2 mb-2" style={{ width: '500px', alignItems: 'center', backgroundColor:'#ffe307cf' }}>
         <img
           style={{ borderRadius: '50%', width: '250px', height: 'auto', border:"solid 1px white", backgroundColor:'white' }}
           src={foto}

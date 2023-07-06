@@ -6,6 +6,8 @@ import {BsFillArrowLeftSquareFill} from "react-icons/bs"
 import {useDispatch, useSelector} from "react-redux"
 import { registrarse } from "../Redux/actions";
 import Swal from 'sweetalert2';
+import Footer from "./Footer";
+import { BsEyeSlash, BsEye } from "react-icons/bs";
 
 const CrearUsuario = () => {
 const dispatch = useDispatch()
@@ -15,7 +17,7 @@ const dispatch = useDispatch()
     correo:"",
     codigo: "",
   });
-
+  const [seePassword, setSeePassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -58,14 +60,16 @@ const dispatch = useDispatch()
   
 
   return (
-   <div  className="d-flex flex-column min-vh-100" style={{backgroundColor:'#6febadda'}}>
+    <>
+  
+   <div  className="d-flex flex-column min-vh-100" >
    
       <Link to={"/"} style={{display :'flex', justifyContent:'center'}}>
-        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px', color:'#1ba2c4da', marginTop:"3px"}}/>
+        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px', color:'#80808096', marginTop:"5px"}}/>
     </Link>
-        <form className="container p-4 bg-info mt-3 mb-3" style={{ width: '400px', borderRadius:'20px' }}onSubmit={handleSubmit}>
-            <h3 className=" mb-4 text-light">Formulario de registro <IoIosCreate/></h3>
-          <label className="text-white" htmlFor="username">Nombre:</label>
+        <form className="container p-4  mt-4 mb-3" style={{ width: '450px', borderRadius:'20px', backgroundColor:'#ffe307cf' }}onSubmit={handleSubmit}>
+            <h3 className=" mb-4 text-center ">Formulario de registro <IoIosCreate/></h3>
+          <label  htmlFor="username">Nombre:</label>
           <input
             type="text"
             id="username"
@@ -76,7 +80,7 @@ const dispatch = useDispatch()
            
           />
           
-           <label className="text-white" htmlFor="useremail">Correo:</label>
+           <label  htmlFor="useremail">Correo:</label>
           <input
           className="form-control mb-3"
             type="email"
@@ -87,9 +91,9 @@ const dispatch = useDispatch()
           
           />
 
-          <label className="text-white" htmlFor="password">Contraseña:</label>
+          <label htmlFor="password">Contraseña:</label>
           <input
-            type="password"
+            type={seePassword ? "text" : "password"}
             id="password"
             name="codigo"
             className="form-control mb-3"
@@ -97,13 +101,22 @@ const dispatch = useDispatch()
             onChange={handleChange}
             
           />
-          
-        <Button className="mt-3" color="primary" onClick={handleSubmit}>
+           <span
+            onClick={() => {
+              setSeePassword(!seePassword);
+            }}
+            className="absolute right-2"
+          >
+            {seePassword ? <BsEyeSlash /> : <BsEye />}
+          </span> <br />
+        <Button className="mt-3" style={{backgroundColor:'black', color:"white"}} onClick={handleSubmit}>
           Registrarme
         </Button>
         </form>
 
    </div>
+   <Footer/>
+     </>
      
   );
 };

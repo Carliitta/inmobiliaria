@@ -44,7 +44,7 @@
 
 /* Cambiar el color del pulgar de la barra de desplazamiento */
 ::-webkit-scrollbar-thumb {
-  background-color: #0cd5f8fd; /* Color del pulgar de la barra de desplazamiento */
+  background-color: #80808096; /* Color del pulgar de la barra de desplazamiento */
   border-radius: 10px;
 }
 
@@ -75,7 +75,7 @@
 
 .spinner {
   margin-left: 49%;
-  border: 4px solid #1ba2c4da;
+  border: 4px solid #ffe307cf;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -102,6 +102,6 @@ select{
   cursor: pointer;
 }
 select:hover{
-  background-color: #6febadda;
+  background-color: #ffe307cf;
   color:rgb(10, 10, 10)
 }

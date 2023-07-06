@@ -41,7 +41,7 @@ const Detalle = () => {
   return (
     <div className="card">
     <Link to={"/"} style={{display :'flex', justifyContent:'center'}}>
-        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px',color:'rgb(7 122 245)', marginTop:"3px"}}/>
+        <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px',color:'#80808096', marginTop:"3px"}}/>
     </Link>
     
     <h1 style={{textAlign:'center'}} >{detail.titulo}</h1> 
@@ -136,7 +136,7 @@ const Detalle = () => {
     
       </div>
       <div>
-        <ContactoForm/>
+        <ContactoForm idInmueble ={id}/>
       </div>
       <Footer/>
           
