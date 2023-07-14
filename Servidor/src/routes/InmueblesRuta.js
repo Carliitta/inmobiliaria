@@ -243,4 +243,37 @@ route.delete("/publicaciones/:id", async(req,res)=>{
   }
 })
 
+
+// Ruta para eliminar una foto de un inmueble
+route.delete("/:inmuebleId/fotos/:fotoId", async (req, res) => {
+  try {
+    const inmuebleId = req.params.inmuebleId;
+    const fotoId = req.params.fotoId;
+
+    // Verificar si el inmueble existe
+    const inmueble = await Inmuebles.findByPk(inmuebleId);
+    if (!inmueble) {
+      return res.status(404).send("Inmueble not found");
+    }
+
+    // Verificar si la foto existe y pertenece al inmueble
+    const foto = await Fotos.findOne({
+      where: {
+        id: fotoId,
+        inmuebleId: inmuebleId
+      }
+    });
+    if (!foto) {
+      return res.status(404).send("Foto not found");
+    }
+
+    // Eliminar la foto
+    await foto.destroy();
+
+    res.status(200).send("Foto deleted");
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = route;

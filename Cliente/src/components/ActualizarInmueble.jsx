@@ -13,16 +13,14 @@ const Actualizar = () => {
   const Propiedad = useSelector((state) => state.propiedad);
   const inmueble = useSelector(state => state.detalle)
   const { id } = useParams();
+ 
+  const dispatch = useDispatch()
 
-
-  
   useEffect(() => {
     dispatch(get_Inmueble(id))
-  //  return () => {dispatch(cleanDetail())}
-  }, []);
+  }, [dispatch, id]);
 
 
-  const dispatch = useDispatch()
 
   const [formData, setFormData] = useState({
     titulo: "",
@@ -44,56 +42,57 @@ const Actualizar = () => {
   const [selectProvincia, setSelectProvincia] = useState(null)
   const [selectPropiedad, setSelectPropiedad] = useState(null)
   const [selectImg, setSelectImg] = useState([]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   };
   useEffect(() => {
-    setFormData({
-    titulo:inmueble?.titulo,
-    descripcion:inmueble?.descripcion,
-    precio: inmueble?.precio,
-    superficie: inmueble?.superficie,
-    antiguedad: inmueble?.antiguedad,
-    ubicacion: inmueble?.ubicacion,
-    operacion: inmueble?.operacion,
-    ambientes:inmueble?.ambientes
-    })
-  
+     if (inmueble) {
+      setFormData({
+        titulo: inmueble?.titulo || '',
+        descripcion: inmueble?.descripcion || '',
+        precio: inmueble?.precio || '',
+        superficie: inmueble?.superficie || '',
+        antiguedad: inmueble?.antiguedad || '',
+        ubicacion: inmueble?.ubicacion || '',
+        operacion: inmueble?.operacion || '',
+        ambientes: inmueble?.ambientes || '',
+      });
+    }
     setSelectProvincia(inmueble.provinciaId )
     setSelectPropiedad(inmueble.propiedadId)
-  console.log(inmueble);
+    setSelectImg(inmueble?.fotos?.map((foto) => ({ id: foto.id, url: foto.url })) || []);
+
+  //console.log(inmueble);
   }, [inmueble])
 
-  
+  const handleDeleteImage = (index) => {
+    setSelectImg((prevImages) => {
+      const updatedImages = [...prevImages];
+      updatedImages.splice(index, 1);
+      return updatedImages;
+    });
+  };
+
   const submitForm = async (e) => {
+
     e.preventDefault()
-    try {
-      
-        const ambientes = parseInt(formData.ambientes);
-        const propiedadId = parseInt(selectPropiedad);
-        const provinciaId = parseInt(selectProvincia);
-        const usuarioId = parseInt(userData.id);
-        
-        if (isNaN(ambientes) || isNaN(propiedadId) || isNaN(provinciaId) || isNaN(usuarioId)) {
-          // Manejo del error: alguno de los campos convertidos no es un número válido
-          throw new Error('Los campos numéricos no contienen valores válidos');
-        }
-        
-        const updateFormData = {
-          titulo: formData.titulo,
-          descripcion: formData.descripcion,
-          precio: formData.precio,
-          superficie: formData.superficie,
-          antiguedad: formData.antiguedad,
-          ubicacion: formData.ubicacion,
-          operacion: formData.operacion,
-          ambientes: ambientes,
-          fotos: selectImg,
-          propiedadId: propiedadId,
-          provinciaId: provinciaId,
-          usuarioId: usuarioId
-        };
+    try {  
+    const updateFormData = {
+      titulo: formData.titulo,
+      descripcion: formData.descripcion,
+      precio: formData.precio,
+      superficie: formData.superficie,
+      antiguedad: formData.antiguedad,
+      ubicacion: formData.ubicacion,
+      operacion: formData.operacion,
+      ambientes:formData.ambientes,
+      fotos: selectImg,
+      propiedadId: selectPropiedad,
+      provinciaId: selectProvincia,
+      usuarioId: userData.id,
+    };
         
         await dispatch(update_Post(id,updateFormData));
         console.log(updateFormData);
@@ -159,7 +158,7 @@ const Actualizar = () => {
           <input type="number" min="0" className="form-control" name='ambientes' value={formData.ambientes} onChange={handleChange} />
         </div>
         <div className="dropdown m-1">
-          <select onChange={(e) => setSelectProvincia(e.target.value)}>
+          <select value={selectProvincia} onChange={(e) => setSelectProvincia(e.target.value)}>
             <option className="dropdown-menu" value="">
             {filtroProv}
             </option>
@@ -180,7 +179,7 @@ const Actualizar = () => {
           <input type="number" min="0" className="form-control" name='precio' value={formData.precio} onChange={handleChange} />
         </div>
         <div className="dropdown m-1">
-          <select onChange={(e) => setSelectPropiedad(e.target.value)}>
+          <select value={selectPropiedad} onChange={(e) => setSelectPropiedad(e.target.value)}>
             <option className="dropdown-menu" value="">
               {filtroProp}
             </option>
@@ -207,7 +206,7 @@ const Actualizar = () => {
           <input name='antiguedad' type="text" className="form-control" value={formData.antiguedad} onChange={handleChange} />
         </div>
         <div className="mb-3">
-          <ImageUpload selected={setSelectImg} />
+          <ImageUpload selected={setSelectImg} onDelete={handleDeleteImage} fotos={selectImg} inmuebleId={inmueble.id} />
         </div>
         <div class="d-grid gap-2">
         <button type="submit" className="btn btn-info btn-lg " style={{backgroundColor:'black', color:"white"}}>Actualizar Inmueble</button>

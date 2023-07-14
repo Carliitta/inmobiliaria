@@ -21,7 +21,9 @@ export const TYPES={
     ENVIAR_EMAIL_SOPORT:'ENVIAR_EMAIL_SOPORT',
     MIS_PUBLICACIONES:'MIS_PUBLICACIONES',
     ELIMINAR_POST:'ELIMINAR_POST',
-    ACTUALIZAR_POST:'ACTUALIZAR_POST'
+    ACTUALIZAR_POST:'ACTUALIZAR_POST',
+    DELETE_FOTO_SUCCESS:'DELETE_FOTO_SUCCESS',
+     DELETE_FOTO_FAILURE:'DELETE_FOTO_FAILURE'
 
 }
 
@@ -295,3 +297,22 @@ export const publicar_Inmueble= (inmueble) => {
       }
     };
   };
+
+  // Acción para eliminar una foto de un inmueble
+export const deleteFoto = (inmuebleId, fotoId) => async (dispatch) => {
+  try {
+    const response = await axios.delete(`http://localhost:3001/inmuebles/${inmuebleId}/fotos/${fotoId}`);
+    const data = response.data;
+    
+    // Actualizar el estado de Redux con el inmueble actualizado
+    dispatch({
+      type: TYPES.DELETE_FOTO_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type:TYPES.DELETE_FOTO_FAILURE,
+      payload: error.response.data.error
+    });
+  }
+};
