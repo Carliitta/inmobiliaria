@@ -98,7 +98,7 @@ route.post("/publicar", async (req, res) => {
 const fotosCreatePromises = fotos.map((fotoUrl) => {
   return Fotos.create({ url: fotoUrl })
     .then((foto) => InmuebleCreate.addFoto(foto));
-});
+});          
 
 // Esperar a que se completen todas las promesas de creación y asociación de las fotos
 await Promise.all(fotosCreatePromises);
@@ -194,23 +194,38 @@ route.get("/:id", async (req,res)=>{
   }
 })
 
-///
-route.get("/publicaciones/:id", async (req,res)=>{
+route.get("/publicaciones/:id", async (req, res) => {
   try {
-    
-    const id= req.params.id
+    const id = req.params.id;
     const publicacion = await Inmuebles.findAll({
+      include: [
+        {
+          model: Fotos,
+          as: 'fotos'
+        }
+      ],
       where: {
-        usuarioId:id
+        usuarioId: id
       }
-    })
-    publicacion.length?
-    res.status(200).send(publicacion):
-    res.status(400).json({msg:"no se encontraron publicaciones" })
+    });
+    const primeraFoto = publicacion[0].fotos[0];
+    const urlFoto = primeraFoto.url;
+    const datosPublicacion =[]
+
+    for (let i = 0; i < publicacion.length; i++) {
+      datosPublicacion.push(publicacion[i])
+      
+    }
+
+
+
+      res.status(200).json(datosPublicacion);
+   
   } catch (error) {
-    res.status(400).json({msg: error.message})
+    res.status(400).json({ msg: error.message });
   }
-})
+});
+
 
 route.delete("/publicaciones/:id", async(req,res)=>{
   try {

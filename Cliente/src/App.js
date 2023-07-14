@@ -11,6 +11,9 @@ import QuienesSomos from './components/Info/QuienesSomos';
 import QuieroVender from './components/Info/QuieroVender';
 import Soporte from './components/Info/Soporte';
 import Desarrollador from './components/Info/Desarrollador';
+import Publicaciones from './components/Publicaciones';
+import Actualizar from './components/ActualizarInmueble';
+
 function App() {
   return (
     <div >
@@ -24,6 +27,8 @@ function App() {
      <Route exact path="/quiero-vender" element={<QuieroVender/>}/>
      <Route exact path="/soporte" element={<Soporte/>}/>
      <Route exact path="/desarrollador" element={<Desarrollador/>}/>
+     <Route exact path="/mis_publicaciones" element={<Publicaciones/>}/>
+     <Route exact path="/actualizar/:id" element={<Actualizar/>}/>
    </Routes>
     </div>
   );

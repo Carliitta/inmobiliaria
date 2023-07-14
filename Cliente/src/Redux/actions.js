@@ -19,6 +19,9 @@ export const TYPES={
     PUBLICAR_INMUEBLE: 'PUBLICAR_INMUEBLE',
     ENVIAR_EMAIL:'ENVIAR_EMAIL',
     ENVIAR_EMAIL_SOPORT:'ENVIAR_EMAIL_SOPORT',
+    MIS_PUBLICACIONES:'MIS_PUBLICACIONES',
+    ELIMINAR_POST:'ELIMINAR_POST',
+    ACTUALIZAR_POST:'ACTUALIZAR_POST'
 
 }
 
@@ -242,6 +245,53 @@ export const publicar_Inmueble= (inmueble) => {
           //console.log("Ocurrió un error en la solicitud:", error.message);
           throw error;
         
+      }
+    };
+  };
+
+  export const get_Posts = (id) => {
+    return async (dispatch) => {
+      try {
+       const publicaciones=  await axios.get(`http://localhost:3001/inmuebles/publicaciones/${id}`); 
+      console.log(publicaciones.data);
+        dispatch({ 
+            type: TYPES.MIS_PUBLICACIONES,
+            payload:publicaciones.data
+         });
+      } catch (error) {
+        console.log("Ocurrió un error en la solicitud:", error.response.data);
+       
+      }
+    };
+  };
+  export const delete_Post = (id) => {
+    return async (dispatch) => {
+      try {
+       await axios.delete(`http://localhost:3001/inmuebles/publicaciones/${id}`); 
+     
+        dispatch({ 
+            type: TYPES.ELIMINAR_POST,
+           
+         });
+      } catch (error) {
+        console.log("Ocurrió un error en la solicitud:", error.response.data);
+       
+      }
+    };
+  };
+
+  
+  export const update_Post = (id, data) => {
+    return async (dispatch) => {
+      try {
+        await axios.put(`http://localhost:3001/inmuebles/${id}`, data);
+  
+        dispatch({
+          type: TYPES.ACTUALIZAR_POST,
+          payload: data 
+        });
+      } catch (error) {
+        console.log("Ocurrió un error en la solicitud:", error.response.data);
       }
     };
   };

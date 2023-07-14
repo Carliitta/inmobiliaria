@@ -46,7 +46,7 @@ const Detalle = () => {
     
     <h1 style={{textAlign:'center'}} >{detail.titulo}</h1> 
     <div style={{display:'flex', justifyContent:'center'}}>
-      <p style={{padding:'2px',textAlign:'center', fontWeight:'bolder', fontSize:'19px', border:'solid 1px' , borderColor:'black', width:'200px'}}>Precio: Usd${detail.precio}</p>
+      <p style={{padding:'2px',textAlign:'center', fontWeight:'bolder', fontSize:'19px', border:'solid 1px' , borderColor:'black', width:'200px', backgroundColor:'#ffe307cf'}}>Precio: Usd${detail.precio}</p>
     </div>
     <div className="container p-2 " style={{ display:'flex', justifyContent:'center'}}>
       <div
@@ -99,7 +99,7 @@ const Detalle = () => {
 
    {/* Informacion */}
       
-      <div className="card text-center mx-auto mt-4 p-1 " style={{width:'1200px'}}>
+      <div className="card text-center mx-auto mt-4 p-1 " style={{width:'1200px' , }}>
         <div className="card-body align-items-start mx-auto">
 
        <p className="text-start">Fecha de publicación: {detail.fecha_publicacion?.slice(0,10)}</p>

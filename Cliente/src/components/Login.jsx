@@ -96,13 +96,28 @@ const Login = ({ isOpen, toggle, onLoginSuccess,loggedInUser }) => {
         isLoggedIn ? "Sesion" :" Acceder"
       } 
       </ModalHeader>
-      <ModalBody style={{backgroundColor:'#ffe307cf'}}>
+      <ModalBody >
       {isLoggedIn ? ( // Mostrar el botón de cerrar sesión si isLoggedIn es true
           <div>
-            <p>Has iniciado sesión correctamente.</p>
+            <p>Has iniciado sesión correctamente.</p> <br></br>
+          <Link to={'/editar'}>
+            <Button className='mb-2' color="primary" >
+             Editar perfil
+            </Button> <br />
+          
+          </Link>
+          
+            <Link to={"/mis_publicaciones"} style={{textDecoration:'none'}}>
+            <Button className='mb-2' color="primary" >
+            Ver mis publicaciones
+            </Button>  
+            </Link> <br />
+            <hr />
             <Button color="primary" onClick={handleLogout}>
               Cerrar sesión
             </Button>
+
+          
           </div>
         ) :
         <form onSubmit={handleSubmit}>

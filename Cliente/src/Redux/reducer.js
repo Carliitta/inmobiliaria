@@ -6,6 +6,7 @@ const initialState = {
   detalle: [],
   propiedad: [],
   user: [],
+  publicaciones:[],
   error: "",
 };
 export function rootReducer(state = initialState, action) {
@@ -163,6 +164,17 @@ export function rootReducer(state = initialState, action) {
             ...state,
           
           };
+          case TYPES.MIS_PUBLICACIONES:
+            return {
+              ...state,
+              publicaciones:action.payload
+            };
+            case TYPES.ACTUALIZAR_POST:
+              return {
+                ...state,
+                
+              };
+          
 
 
     default:
