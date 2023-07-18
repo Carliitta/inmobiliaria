@@ -100,7 +100,7 @@ const Login = ({ isOpen, toggle, onLoginSuccess,loggedInUser }) => {
       {isLoggedIn ? ( // Mostrar el botón de cerrar sesión si isLoggedIn es true
           <div>
             <p>Has iniciado sesión correctamente.</p> <br></br>
-          <Link to={'/editar'}>
+          <Link to={`/user/editar/${existingUserLog.id}`}>
             <Button className='mb-2' color="primary" >
              Editar perfil
             </Button> <br />

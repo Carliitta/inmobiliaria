@@ -8,6 +8,7 @@ const initialState = {
   user: [],
   publicaciones:[],
   error: "",
+  isAuthenticated: false,
 };
 export function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -136,18 +137,18 @@ export function rootReducer(state = initialState, action) {
       };
     //SESION
     case TYPES.LOGIN_SUCCESS:
-     
-
+    
       return {
         ...state,
         user: action.payload,
+        isAuthenticated: true
       };
     case TYPES.LOG_OUT:
       window.localStorage.removeItem("user-log");
-
       return {
         ...state,
         user: {},
+        isAuthenticated: false
       };
       case TYPES.PUBLICAR_INMUEBLE:
         return {
@@ -169,11 +170,7 @@ export function rootReducer(state = initialState, action) {
               ...state,
               publicaciones:action.payload
             };
-            case TYPES.ACTUALIZAR_POST:
-              return {
-                ...state,
-                
-              };
+          
           
 
 

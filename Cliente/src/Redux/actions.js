@@ -22,6 +22,7 @@ export const TYPES={
     MIS_PUBLICACIONES:'MIS_PUBLICACIONES',
     ELIMINAR_POST:'ELIMINAR_POST',
     ACTUALIZAR_POST:'ACTUALIZAR_POST',
+    ACTUALIZAR_PERFIL:'ACTUALIZAR_PERFIL',
     DELETE_FOTO_SUCCESS:'DELETE_FOTO_SUCCESS',
      DELETE_FOTO_FAILURE:'DELETE_FOTO_FAILURE'
 
@@ -291,6 +292,21 @@ export const publicar_Inmueble= (inmueble) => {
         dispatch({
           type: TYPES.ACTUALIZAR_POST,
           payload: data 
+        });
+      } catch (error) {
+        console.log("Ocurrió un error en la solicitud:", error.response.data);
+      }
+    };
+  };
+
+  export const update_Profile = (id, data) => {
+    return async (dispatch) => {
+      try {
+        await axios.put(`http://localhost:3001/usuarios/editar/${id}`, data);
+  
+        dispatch({
+          type: TYPES.ACTUALIZAR_PERFIL,
+         payload: data 
         });
       } catch (error) {
         console.log("Ocurrió un error en la solicitud:", error.response.data);
