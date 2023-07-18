@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar } from "./Navbar";
 import Card from "./Card";
-
+import  NotFount from "./notFount/NotFount"
 import Footer from "./Footer";
 import Paginado from "./Paginado";
 import { get_All_Inmuebles, clear_error } from "../Redux/actions";
@@ -41,22 +41,23 @@ const Home = () => {
         <div className="row">
           {error ? (
             <Mensaje />
-          ) : inmuebles ? (
-            inmuebles.slice((pagina-1) * verPorPagina,(pagina-1)*verPorPagina +verPorPagina).map((inmueble) => (
-              <Card key={inmueble.id}
-                id={inmueble.id}
-                titulo={inmueble.titulo}
-                provincia={inmueble.provincia}
-                ubicacion={inmueble.ubicacion}
-                precio={inmueble.precio}
-                fotos={inmueble.fotos?.url ||inmueble.fotos[0]?.url }
+          ) :inmuebles && inmuebles.length > 0 ? (
+            inmuebles?.slice((pagina-1) * verPorPagina,(pagina-1)*verPorPagina +verPorPagina)?.map((inmueble) => (
+              <Card key={inmueble?.id}
+                id={inmueble?.id}
+                titulo={inmueble?.titulo}
+                provincia={inmueble?.provincia}
+                ubicacion={inmueble?.ubicacion}
+                precio={inmueble?.precio}
+                fotos={inmueble?.fotos?.url ||inmueble?.fotos[0]?.url }
               />
             ))
           ) : (
-            <div className="loadingDiv">
+            /* <div className="loadingDiv">
               <p className="spinner"></p>
               <p className="loadingp">Cargando...</p>
-            </div>
+            </div> */
+            < NotFount/>
           )}
         </div>
       </div>
