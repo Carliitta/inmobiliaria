@@ -85,12 +85,14 @@ setTimeout(function(){
       return (
         <div key={el.id} className="card " style={{width:'16rem'}}>
            <div style={{ height:'200px'}}>
-           <img src={el?.fotos[0]?.url} className="card-img-top p-1" alt="Foto de la publicación" />
+           <img src={el?.fotos[0]?.url} className="card-img-top p-1" alt="Foto de la publicación" style={{ height: '100%', width: '100%', objectFit: 'cover' }}/>
 
           </div>
+        <div style={{ height: '100px' }}>
 
         <h5  className="card-title text-center">{el.titulo}</h5>
         <p className="card-text text-center">{el.descripcion.slice(0, 30)}...</p>
+        </div>
         <div className="d-flex " style={{justifyContent:'center'}}>
         <Button className="m-1" style={{backgroundColor:"#ffe307cf", color:'#000'}} onClick={()=>Eliminar_Post(el.id)}>
           Eliminar

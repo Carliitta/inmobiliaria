@@ -33,7 +33,7 @@ const Home = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: "100vh" }}>
-      <Navbar isOpen={isModalOpen} toggle={toggleModal} />
+      <Navbar isOpen={isModalOpen} toggle={toggleModal} setPagina={setPagina} />
     
 {/* { console.log(user)} */}
    
@@ -41,7 +41,7 @@ const Home = () => {
         <div className="row">
           {error ? (
             <Mensaje />
-          ) :inmuebles && inmuebles.length > 0 ? (
+          ) :inmuebles && inmuebles?.length > 0 ? (
             inmuebles?.slice((pagina-1) * verPorPagina,(pagina-1)*verPorPagina +verPorPagina)?.map((inmueble) => (
               <Card key={inmueble?.id}
                 id={inmueble?.id}
@@ -52,7 +52,9 @@ const Home = () => {
                 fotos={inmueble?.fotos?.url ||inmueble?.fotos[0]?.url }
               />
             ))
-          ) : (
+          ) : inmuebles?.length === 0 ? (
+            <div className="not-found-message mt-4 fs-4">No se encontraron inmuebles que coincidan con los filtros seleccionados.</div>
+          ) :  (
             <div className="loadingDiv">
               <p className="spinner"></p>
               <p className="loadingp">Cargando...</p>

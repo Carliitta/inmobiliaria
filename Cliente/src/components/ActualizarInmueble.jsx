@@ -37,10 +37,10 @@ const Actualizar = () => {
   const [filtroProv, setFiltroprov] = useState('--Seleccione una Provincia');
   const [filtroOpe, setFiltroOpe] = useState('--Seleccione tipo de Operacion');
   const [filtroProp, setFiltroprop] = useState('--Seleccione tipo de Propiedad');
-  const storedUserData = localStorage.getItem("loggedInUser");
+  const storedUserData = localStorage.getItem("user-log");
   const userData = JSON.parse(storedUserData);
-  const [selectProvincia, setSelectProvincia] = useState(null)
-  const [selectPropiedad, setSelectPropiedad] = useState(null)
+  const [selectProvincia, setSelectProvincia] = useState("")
+  const [selectPropiedad, setSelectPropiedad] = useState("")
   const [selectImg, setSelectImg] = useState([]);
 
   const handleChange = (e) => {
@@ -60,8 +60,8 @@ const Actualizar = () => {
         ambientes: inmueble?.ambientes || '',
       });
     }
-    setSelectProvincia(inmueble.provinciaId )
-    setSelectPropiedad(inmueble.propiedadId)
+    setSelectProvincia(inmueble.Provincia?.id)
+    setSelectPropiedad(inmueble.Propiedad?.id)
     setSelectImg(inmueble?.fotos?.map((foto) => ({ id: foto.id, url: foto.url })) || []);
 
   //console.log(inmueble);
@@ -80,6 +80,7 @@ const Actualizar = () => {
     e.preventDefault()
     try {  
     const updateFormData = {
+      
       titulo: formData.titulo,
       descripcion: formData.descripcion,
       precio: formData.precio,
@@ -95,7 +96,7 @@ const Actualizar = () => {
     };
         
         await dispatch(update_Post(id,updateFormData));
-        console.log(updateFormData);
+       // console.log(updateFormData);
         Swal.fire({
           icon: 'success',
           title: '¡Perfecto!',
@@ -116,13 +117,13 @@ const Actualizar = () => {
           antiguedad: '',
           ambientes:''
         });
-        navegate('/mis_publicaciones');
+        navegate('/mis_publicaciones/'+ userData.id);
    
     } catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Ha ocurrido un error',
-        text: error.Message,
+        text: error.message,
       });
     }
   }
@@ -138,7 +139,7 @@ const Actualizar = () => {
         <Link to={"/"}>
         <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px',color:'#80808096'}}/>
     </Link>
-      {console.log(selectImg)}
+     
       <form className='container p-3  mt-3 mb-3 ' style={{ width: '700px', borderRadius:'20px', backgroundColor:'#ffe307cf' }} onSubmit={submitForm}>
       <h3 className='text-center p-1 '>Formulario de publicacion</h3>
         <div className="mb-3">
@@ -159,7 +160,7 @@ const Actualizar = () => {
         </div>
         <div className="dropdown m-1">
           <select value={selectProvincia} onChange={(e) => setSelectProvincia(e.target.value)}>
-            <option className="dropdown-menu" value="">
+            <option className="dropdown-menu" value='3'>
             {filtroProv}
             </option>
 
@@ -180,7 +181,7 @@ const Actualizar = () => {
         </div>
         <div className="dropdown m-1">
           <select value={selectPropiedad} onChange={(e) => setSelectPropiedad(e.target.value)}>
-            <option className="dropdown-menu" value="">
+            <option className="dropdown-menu" value='1'>
               {filtroProp}
             </option>
 
@@ -193,7 +194,7 @@ const Actualizar = () => {
         </div>
         <div className="dropdown m-1">
           <select name='operacion' value={formData.operacion} onChange={handleChange}>
-            <option className="dropdown-menu">
+            <option className="dropdown-menu" value='2'>
               {filtroOpe}
             </option>
 
@@ -206,9 +207,9 @@ const Actualizar = () => {
           <input name='antiguedad' type="text" className="form-control" value={formData.antiguedad} onChange={handleChange} />
         </div>
         <div className="mb-3">
-          <ImageUpload selected={setSelectImg} onDelete={handleDeleteImage} fotos={selectImg} inmuebleId={inmueble.id} />
+          <ImageUpload selected={setSelectImg} onDelete={handleDeleteImage} fotos={selectImg} inmuebleId={inmueble?.id} />
         </div>
-        <div class="d-grid gap-2">
+        <div className="d-grid gap-2">
         <button type="submit" className="btn btn-info btn-lg " style={{backgroundColor:'black', color:"white"}}>Actualizar Inmueble</button>
        </div>    
       </form>

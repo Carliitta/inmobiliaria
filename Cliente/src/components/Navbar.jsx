@@ -9,7 +9,7 @@ import {AiOutlineUser} from "react-icons/ai"
 import {BsSearch} from "react-icons/bs"
 import CrearUsuario from "./CrearUsuario";
 import Login from "./Login";
-export const Navbar = ({isOpen, toggle}) => {
+export const Navbar = ({isOpen, toggle, setPagina}) => {
 const [search, setSearch]= useState('')
 const inmuebles = useSelector((state) => state.inmuebles);
 
@@ -145,7 +145,7 @@ const handleLoginSuccess = (user) => {
       </div>
     </nav>
     <div style={{marginTop:'110px'}}>
-    {inmuebles && inmuebles.length > 0 && <Filtros />}
+    {inmuebles && inmuebles.length > 0 && <Filtros setPagina={setPagina} />}
 
     </div>
     </>

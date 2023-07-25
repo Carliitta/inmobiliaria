@@ -32,7 +32,7 @@ export const get_All_Inmuebles = () => {
     try {
       const response = await axios.get("http://localhost:3001/inmuebles");
       const inmuebles = response.data;
-      console.log(inmuebles);
+     // console.log(inmuebles);
       dispatch({
         type: TYPES.GET_INMUEBLES,
         payload: inmuebles,
@@ -329,3 +329,4 @@ export const deleteFoto = (inmuebleId, fotoId) => async (dispatch) => {
     });
   }
 };
+

@@ -72,7 +72,7 @@ const ImageUpload = ({ selected, onDelete, fotos, inmuebleId }) => {
         {previewImages.map((image, index) => (
           <div key={index} style={{ display: 'flex' }}>
             <img
-              src={image}
+              src={image.url || image}
               alt={`Preview ${index + 1}`}
               style={{
                 maxWidth: '100px',

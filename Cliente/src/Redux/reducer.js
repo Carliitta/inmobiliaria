@@ -6,7 +6,7 @@ const initialState = {
   detalle: [],
   propiedad: [],
   user: [],
-  publicaciones:[],
+  publicaciones: [],
   error: "",
   isAuthenticated: false,
 };
@@ -60,8 +60,10 @@ export function rootReducer(state = initialState, action) {
       } else {
         return {
           ...state,
-          inmuebles: state.All_inmueble?.filter((el) =>
-          el.Provincia?.nombre_prov === action.payload)}
+          inmuebles: state.All_inmueble?.filter(
+            (el) => el.Provincia?.nombre_prov === action.payload
+          ),
+        };
       }
 
     case TYPES.FILTRAR_OPERACION:
@@ -88,94 +90,87 @@ export function rootReducer(state = initialState, action) {
       } else {
         return {
           ...state,
-          inmuebles: state.inmuebles?.filter((el) =>
-          el.Propiedad?.nombre === action.payload)}
-        
+          inmuebles: state.inmuebles?.filter(
+            (el) => el.Propiedad?.nombre === action.payload
+          ),
+        };
       }
-      case TYPES.FILTRAR_PECIO:
-        if (action.payload === "defecto") {
-          return {
-            ...state,
-            inmuebles: state.All_inmueble,
-          };
-        } else if (action.payload === "mayor") {
-          const sortedInmueblesMayor = [...state.inmuebles].sort((a, b) => {
-            if (parseFloat(a.precio) > parseFloat(b.precio)) {
-              return -1;
-            }
-            if (parseFloat(a.precio) < parseFloat(b.precio)) {
-              return 1;
-            }
-            return 0;
-          });
-          return {
-            ...state,
-            inmuebles: sortedInmueblesMayor,
-          };
-        } else if (action.payload === "menor") {
-          const sortedInmueblesMenor = [...state.inmuebles].sort((a, b) => {
-            if (parseFloat(a.precio) < parseFloat(b.precio)) {
-              return -1;
-            }
-            if (parseFloat(a.precio) > parseFloat(b.precio)) {
-              return 1;
-            }
-            return 0;
-          });
-          return {
-            ...state,
-            inmuebles: sortedInmueblesMenor,
-          };
-        }
-      
+    case TYPES.FILTRAR_PECIO:
+      if (action.payload === "defecto") {
+        return {
+          ...state,
+          inmuebles: state.All_inmueble,
+        };
+      } else if (action.payload === "mayor") {
+        const sortedInmueblesMayor = [...state.inmuebles].sort((a, b) => {
+          if (parseFloat(a.precio) > parseFloat(b.precio)) {
+            return -1;
+          }
+          if (parseFloat(a.precio) < parseFloat(b.precio)) {
+            return 1;
+          }
+          return 0;
+        });
+        return {
+          ...state,
+          inmuebles: sortedInmueblesMayor,
+        };
+      } else if (action.payload === "menor") {
+        const sortedInmueblesMenor = [...state.inmuebles].sort((a, b) => {
+          if (parseFloat(a.precio) < parseFloat(b.precio)) {
+            return -1;
+          }
+          if (parseFloat(a.precio) > parseFloat(b.precio)) {
+            return 1;
+          }
+          return 0;
+        });
+        return {
+          ...state,
+          inmuebles: sortedInmueblesMenor,
+        };
+      }
+
     case TYPES.LIMPIAR_FILTROS:
       return {
         inmuebles: state.All_inmueble,
       };
     //SESION
     case TYPES.LOGIN_SUCCESS:
-    
       return {
         ...state,
         user: action.payload,
-        isAuthenticated: true
+        isAuthenticated: true,
       };
     case TYPES.LOG_OUT:
       window.localStorage.removeItem("user-log");
-     
+
       return {
         ...state,
         user: {},
-        isAuthenticated: false
+        isAuthenticated: false,
       };
-      case TYPES.PUBLICAR_INMUEBLE:
-        return {
-          ...state,
-        
-        };
-        case TYPES.ENVIAR_EMAIL:
-          return {
-            ...state,
-          
-          };
-          case TYPES.ENVIAR_EMAIL_SOPORT:
-          return {
-            ...state,
-          
-          };
-          case TYPES.MIS_PUBLICACIONES:
-            return {
-              ...state,
-              publicaciones:action.payload
-            };
-            case TYPES.ACTUALIZAR_PERFIL:
-              return {
-                ...state,
-               
-              };
-          
-          
-
+    case TYPES.PUBLICAR_INMUEBLE:
+      return {
+        ...state,
+      };
+    case TYPES.ENVIAR_EMAIL:
+      return {
+        ...state,
+      };
+    case TYPES.ENVIAR_EMAIL_SOPORT:
+      return {
+        ...state,
+      };
+    case TYPES.MIS_PUBLICACIONES:
+      return {
+        ...state,
+        publicaciones: action.payload,
+      };
+    case TYPES.ACTUALIZAR_PERFIL:
+      return {
+        ...state,
+      };
 
     default:
       return {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ImageUpload from './SubirFotos'
-import {  Link } from "react-router-dom";
+import {  Link , useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
 import { get_All_Provincias, get_All_Propiedad, publicar_Inmueble, deleteFoto } from '../Redux/actions'
 import Swal from 'sweetalert2';
@@ -10,7 +10,7 @@ const Publicar = () => {
 
   const provincias = useSelector((state) => state.provincias);
   const Propiedad = useSelector((state) => state.propiedad);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch()
 
   const [formData, setFormData] = useState({
@@ -93,7 +93,7 @@ const Publicar = () => {
           ambientes:''
         });
       }
-   
+   navigate('/')
     } catch (error) {
       Swal.fire({
         icon: 'error',

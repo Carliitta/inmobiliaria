@@ -11,7 +11,7 @@ import {
 } from "../Redux/actions";
 import Mensaje from "./Mensaje";
 
-const Filtros = () => {
+const Filtros = ({setPagina}) => {
   const provincias = useSelector((state) => state.provincias);
   const Propiedad = useSelector((state) => state.propiedad);
   const inmuebles = useSelector((state) => state.inmuebles);
@@ -27,22 +27,26 @@ const Filtros = () => {
 
   const filtrarProvincia = (e) => {
     dispatch(filter_by_Provincias(e.target.value));
-   
+    setFiltroprov(filtroProv)
+    setPagina(1)
   };
 
   const filtrarOperacion = (e) => {
     dispatch(filter_by_Operacion(e.target.value));
-   
+    setFiltroOpe(filtroOpe)
+    setPagina(1)
   };
 
   const filtrarPropiedad = (e) => {
     dispatch(filter_by_propiedad(e.target.value));
-   
+    setFiltroprop(filtroProp)
+    setPagina(1)
   };
 
   const filtrarPrecio = (e) => {
     dispatch(filter_by_precio(e.target.value));
-   
+    setFiltroprecio(filtroPrecio)
+    setPagina(1)
   };
   const LimpiarFiltros = () => {
     dispatch(filter_clear());
@@ -113,6 +117,7 @@ const Filtros = () => {
       <div style={{margin:'5px'}}>
         <button onClick={LimpiarFiltros} className="btn  btn-sm " style={{backgroundColor:'#80808096'}}>Limpiar Filtros</button>
       </div>
+      
     </nav>
   );
 };
