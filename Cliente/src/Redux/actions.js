@@ -26,11 +26,11 @@ export const TYPES = {
   DELETE_FOTO_SUCCESS: "DELETE_FOTO_SUCCESS",
   DELETE_FOTO_FAILURE: "DELETE_FOTO_FAILURE",
 };
-
+ const URL_DEPLOY='https://inmobiliaria-production.up.railway.app'
 export const get_All_Inmuebles = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/inmuebles");
+      const response = await axios.get(`${URL_DEPLOY}/inmuebles`);
       const inmuebles = response.data;
      // console.log(inmuebles);
       dispatch({
@@ -38,14 +38,17 @@ export const get_All_Inmuebles = () => {
         payload: inmuebles,
       });
     } catch (error) {
-      throw error;
+      dispatch({
+        type: TYPES.ERROR_MENSAJE,
+        payload: error.response.data,
+      });
     }
   };
 };
 export const get_All_Provincias = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/provincias");
+      const response = await axios.get(`${URL_DEPLOY}/provincias`);
       const prov = response.data;
       // console.log(prov);
       dispatch({
@@ -60,7 +63,7 @@ export const get_All_Provincias = () => {
 export const get_All_Propiedad = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/propiedad");
+      const response = await axios.get(`${URL_DEPLOY}/propiedad`);
       const prop = response.data;
       // console.log(prop);
       dispatch({
@@ -78,7 +81,7 @@ export const search_Inmuebles = (ubicacion) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `/inmuebles?ubicacion=${ubicacion}`
+        `${URL_DEPLOY}/inmuebles?ubicacion=${ubicacion}`
       );
       const search = response.data;
 
@@ -106,7 +109,7 @@ export const clear_error = () => {
 export const get_Inmueble = (id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/inmuebles/" + id);
+      const response = await axios.get(`${URL_DEPLOY}/inmuebles/` + id);
       const inmueble = response.data;
       // console.log(inmueble);
       dispatch({
@@ -169,7 +172,7 @@ export const filter_clear = () => {
 export const registrarse = (data) => {
   return async (dispatch) => {
     try {
-      await axios.post("/usuarios/registro", data);
+      await axios.post(`${URL_DEPLOY}/usuarios/registro`, data);
       dispatch({
         type: TYPES.CREAR_USUARIO,
       });
@@ -218,7 +221,7 @@ export const publicar_Inmueble = (inmueble) => {
 export const sendEmail = (id, data) => {
   return async (dispatch) => {
     try {
-      await axios.post(`/contactar/${id}`, data);
+      await axios.post(`${URL_DEPLOY}/contactar/${id}`, data);
 
       dispatch({
         type: TYPES.ENVIAR_EMAIL,
@@ -232,7 +235,7 @@ export const sendEmail = (id, data) => {
 export const sendEmailSoport = (data) => {
   return async (dispatch) => {
     try {
-      await axios.post(`/contactar/soporte`, data);
+      await axios.post(`${URL_DEPLOY}/contactar/soporte`, data);
 
       dispatch({
         type: TYPES.ENVIAR_EMAIL_SOPORT,
@@ -248,7 +251,7 @@ export const get_Posts = (id) => {
   return async (dispatch) => {
     try {
       const publicaciones = await axios.get(
-        `/inmuebles/publicaciones/${id}`
+        `${URL_DEPLOY}/inmuebles/publicaciones/${id}`
       );
       // console.log(publicaciones.data);
       dispatch({
@@ -263,7 +266,7 @@ export const get_Posts = (id) => {
 export const delete_Post = (id) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`/inmuebles/publicaciones/${id}`);
+      await axios.delete(`${URL_DEPLOY}/inmuebles/publicaciones/${id}`);
 
       dispatch({
         type: TYPES.ELIMINAR_POST,
@@ -277,7 +280,7 @@ export const delete_Post = (id) => {
 export const update_Post = (id, data) => {
   return async (dispatch) => {
     try {
-      await axios.put(`/inmuebles/${id}`, data);
+      await axios.put(`${URL_DEPLOY}/inmuebles/${id}`, data);
 
       dispatch({
         type: TYPES.ACTUALIZAR_POST,
@@ -292,7 +295,7 @@ export const update_Post = (id, data) => {
 export const update_Profile = (id, data) => {
   return async (dispatch) => {
     try {
-      await axios.put(`/usuarios/editar/${id}`, data);
+      await axios.put(`${URL_DEPLOY}/usuarios/editar/${id}`, data);
       // Actualizar los datos en el localStorage
       const storedUserData = localStorage.getItem("user-log");
       const userData = JSON.parse(storedUserData);
@@ -313,7 +316,7 @@ export const update_Profile = (id, data) => {
 export const deleteFoto = (inmuebleId, fotoId) => async (dispatch) => {
   try {
     const response = await axios.delete(
-      `/inmuebles/${inmuebleId}/fotos/${fotoId}`
+      `${URL_DEPLOY}/inmuebles/${inmuebleId}/fotos/${fotoId}`
     );
     const data = response.data;
 
