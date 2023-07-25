@@ -60,10 +60,8 @@ export function rootReducer(state = initialState, action) {
       } else {
         return {
           ...state,
-          inmuebles: state.All_inmueble?.filter(
-            (el) => el.provincia === action.payload
-          ),
-        };
+          inmuebles: state.All_inmueble?.filter((el) =>
+          el.Provincia?.nombre_prov === action.payload)}
       }
 
     case TYPES.FILTRAR_OPERACION:
@@ -90,10 +88,9 @@ export function rootReducer(state = initialState, action) {
       } else {
         return {
           ...state,
-          inmuebles: state.inmuebles.filter(
-            (el) => el.propiedad === action.payload
-          ),
-        };
+          inmuebles: state.inmuebles?.filter((el) =>
+          el.Propiedad?.nombre === action.payload)}
+        
       }
       case TYPES.FILTRAR_PECIO:
         if (action.payload === "defecto") {

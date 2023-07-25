@@ -27,7 +27,7 @@ const Filtros = () => {
 
   const filtrarProvincia = (e) => {
     dispatch(filter_by_Provincias(e.target.value));
-    
+   
   };
 
   const filtrarOperacion = (e) => {
@@ -54,9 +54,11 @@ const Filtros = () => {
     dispatch(get_All_Propiedad());
   };
 
+
  
   return (
     <nav className="navbar justify-content-center ">
+    
       <div className="dropdown m-1">
         <select onChange={filtrarProvincia}>
           <option className="dropdown-menu" value="">
