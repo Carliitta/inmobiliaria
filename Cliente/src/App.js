@@ -17,8 +17,9 @@ import EditarPerfil from './components/EditarPerfil';
 import NotFount from "./components/notFount/NotFount";
 import { useSelector } from "react-redux";
 import PrivateRoute  from "./components/PrivateRoute"; // Import the custom hook
-
-
+import axios from 'axios';
+//axios.defaults.url= 'http://localhost:3001'
+axios.defaults.url= 'https://inmobiliaria-production.up.railway.app/'
 function App() {
   return (
     <div>
