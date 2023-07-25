@@ -27,6 +27,7 @@ export const TYPES = {
   DELETE_FOTO_FAILURE: "DELETE_FOTO_FAILURE",
 };
  const URL_DEPLOY='https://inmobiliaria-production.up.railway.app'
+ //const URL_DEPLOY='http://localhost:3001'
 export const get_All_Inmuebles = () => {
   return async (dispatch) => {
     try {
@@ -205,7 +206,7 @@ export const publicar_Inmueble = (inmueble) => {
   return async (dispatch) => {
     try {
       const inmueb = await axios.post(
-        "/inmuebles/publicar",
+        `${URL_DEPLOY}/inmuebles/publicar`,
         inmueble
       );
       // console.log(inmueb)

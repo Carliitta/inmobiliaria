@@ -98,7 +98,7 @@ const Publicar = () => {
       Swal.fire({
         icon: 'error',
         title: 'Ha ocurrido un error',
-        text: error.Message,
+        text: error.message,
       });
     }
   }
@@ -182,7 +182,7 @@ const Publicar = () => {
           <input name='antiguedad' type="text" className="form-control" value={formData.antiguedad} onChange={handleChange} />
         </div>
       
-        <div class="d-grid gap-2">
+        <div className="d-grid gap-2">
         <button id='submit' type="submit" className="btn btn-info btn-lg " style={{backgroundColor:'black', color:"white"}}>Publicar Inmueble</button>
        </div>    
       </form>

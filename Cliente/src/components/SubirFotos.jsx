@@ -37,11 +37,11 @@ const ImageUpload = ({ selected, onDelete, fotos, inmuebleId }) => {
       
       images.push(newImage);
     }
-  console.log(previewImages);
+ 
     setIdCounter(idCounter + files.length);
     setPreviewImages((prevImages) => [...prevImages, ...images]);
     selected(images.map(img => img.url));
-    console.log(images);
+   /*  console.log(images); */
   };
   
 
