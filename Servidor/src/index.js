@@ -6,7 +6,7 @@ const  Usuarios = require("./models/Usuarios.js")  // importo  cada modelo
 const  Propiedad = require("./models/Propiedad.js")
 const  Provincias = require("./models/Provincias.js")
 const  {Inmuebles} = require("./models/Inmuebles.js")
-
+const port = process.env.PORT || 3001
 //script para cargar datos a la Db por las dudas :x
 const initiateTables = async () => {
    /*  let usuarios=[
@@ -106,8 +106,8 @@ async function main () {
         await sequelize.sync({force:false});   //para sincronizar con la base de datos y crear las tablas
         initiateTables();  //inserta los datos a la db
         console.log("la conexion fue establecida ")
-        app.listen(3001)
-        console.log("Servidor escuchando en el puerto 3001")
+        app.listen(port)
+        console.log("Servidor escuchando en el puerto "+ port)
         
     } catch (error) {
         console.log("error de conexion ",error)
