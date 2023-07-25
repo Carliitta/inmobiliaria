@@ -95,42 +95,42 @@ export function rootReducer(state = initialState, action) {
           ),
         };
       }
-
-    case TYPES.FILTRAR_PECIO:
-      if (action.payload === "defecto") {
-        return {
-          ...state,
-          inmuebles: state.All_inmueble,
-        };
-      } else if (action.payload === "mayor") {
-        const sortedInmuebles = [state.inmuebles].sort((a, b) => {
-          if (parseFloat(a.precio) > parseFloat(b.precio)) {
-            return -1;
-          }
-          if (parseFloat(a.precio) < parseFloat(b.precio)) {
-            return 1;
-          }
-          return 0;
-        });
-        return {
-          ...state,
-          inmuebles: sortedInmuebles,
-        };
-      } else {
-        const sortedInmuebles = [...state.inmuebles].sort((a, b) => {
-          if (parseFloat(a.precio) < parseFloat(b.precio)) {
-            return -1;
-          }
-          if (parseFloat(a.precio) > parseFloat(b.precio)) {
-            return 1;
-          }
-          return 0;
-        });
-        return {
-          ...state,
-          inmuebles: sortedInmuebles,
-        };
-      }
+      case TYPES.FILTRAR_PECIO:
+        if (action.payload === "defecto") {
+          return {
+            ...state,
+            inmuebles: state.All_inmueble,
+          };
+        } else if (action.payload === "mayor") {
+          const sortedInmueblesMayor = [...state.inmuebles].sort((a, b) => {
+            if (parseFloat(a.precio) > parseFloat(b.precio)) {
+              return -1;
+            }
+            if (parseFloat(a.precio) < parseFloat(b.precio)) {
+              return 1;
+            }
+            return 0;
+          });
+          return {
+            ...state,
+            inmuebles: sortedInmueblesMayor,
+          };
+        } else if (action.payload === "menor") {
+          const sortedInmueblesMenor = [...state.inmuebles].sort((a, b) => {
+            if (parseFloat(a.precio) < parseFloat(b.precio)) {
+              return -1;
+            }
+            if (parseFloat(a.precio) > parseFloat(b.precio)) {
+              return 1;
+            }
+            return 0;
+          });
+          return {
+            ...state,
+            inmuebles: sortedInmueblesMenor,
+          };
+        }
+      
     case TYPES.LIMPIAR_FILTROS:
       return {
         inmuebles: state.All_inmueble,
@@ -145,6 +145,7 @@ export function rootReducer(state = initialState, action) {
       };
     case TYPES.LOG_OUT:
       window.localStorage.removeItem("user-log");
+     
       return {
         ...state,
         user: {},
@@ -170,6 +171,11 @@ export function rootReducer(state = initialState, action) {
               ...state,
               publicaciones:action.payload
             };
+            case TYPES.ACTUALIZAR_PERFIL:
+              return {
+                ...state,
+               
+              };
           
           
 

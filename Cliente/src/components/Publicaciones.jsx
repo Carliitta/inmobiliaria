@@ -12,20 +12,23 @@ import { icons } from "react-icons/lib";
 const Publicaciones = () => {
   const publicaciones = useSelector(state => state.publicaciones);
   const dispatch = useDispatch();
-  const storedUserData = localStorage.getItem('loggedInUser');
-  const userData = JSON.parse(storedUserData);
+  const storedUserData = localStorage.getItem('user-log');
+  const userData = JSON.parse(storedUserData); 
+/*   const  usuario= useSelector((state)=>state.user)
+  const dataUser= usuario */
   const [loading, setLoading] = useState(true); // Estado de carga
 
   useEffect(() => {
-    dispatch(get_Posts(userData.id))
+    dispatch(get_Posts(userData?.id))
       .then(() => {
         setLoading(false); 
       })
       .catch((error) => {
         console.log(error);
         setLoading(false); 
-      });
-  }, [dispatch, userData.id]);
+      }); 
+     // console.log(userData);
+  }, [dispatch]);
  
   if (loading) {
     return (
@@ -49,7 +52,7 @@ const Publicaciones = () => {
       cancelButtonText: 'Cancelar',
       
     }).then( respuesta=>{
-      console.log(respuesta);
+      //console.log(respuesta);
       if(respuesta.isConfirmed ===true){
         dispatch(delete_Post(id))
     Swal.fire({
@@ -75,18 +78,18 @@ setTimeout(function(){
         <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'10px',color:'#80808096'}}/>
     </Link>
     <div className="container mb-3" style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr', gap:'10px' }}>
-   {console.log(publicaciones)}
+  
    {
     publicaciones.length?
     publicaciones.map(el=>{
       return (
-        <div  className="card " style={{width:'16rem'}}>
+        <div key={el.id} className="card " style={{width:'16rem'}}>
            <div style={{ height:'200px'}}>
-           <img src={el.fotos[0].url} className="card-img-top p-1" alt="Foto de la publicación" />
+           <img src={el?.fotos[0]?.url} className="card-img-top p-1" alt="Foto de la publicación" />
 
-     </div>
+          </div>
 
-        <h5 key={el.id} className="card-title text-center">{el.titulo}</h5>
+        <h5  className="card-title text-center">{el.titulo}</h5>
         <p className="card-text text-center">{el.descripcion.slice(0, 30)}...</p>
         <div className="d-flex " style={{justifyContent:'center'}}>
         <Button className="m-1" style={{backgroundColor:"#ffe307cf", color:'#000'}} onClick={()=>Eliminar_Post(el.id)}>

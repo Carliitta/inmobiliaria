@@ -34,7 +34,7 @@ function App() {
         
         <Route element={<PrivateRoute />}>
         <Route path="/publicar" element={<Publicar />} />
-        <Route path="/mis_publicaciones" element={<Publicaciones />} />
+        <Route path="/mis_publicaciones/:id" element={<Publicaciones />} />
         <Route path="/actualizar/:id" element={<Actualizar />} />
         <Route path="/user/editar/:id" element={<EditarPerfil />} />
 

@@ -1,10 +1,10 @@
 const { Router } = require("express");
 const route = Router();
 const { Op, where } = require("sequelize");
-const {Inmuebles, Fotos} = require("../models/Inmuebles.js");
+const { Inmuebles, Fotos } = require("../models/Inmuebles.js");
 const Propiedad = require("../models/Propiedad.js");
 const Provincias = require("../models/Provincias.js");
-const Usuarios = require("../models/Usuarios.js")
+const Usuarios = require("../models/Usuarios.js");
 
 route.get("/", async (req, res) => {
   const { ubicacion } = req.query;
@@ -13,7 +13,7 @@ route.get("/", async (req, res) => {
       include: [
         {
           model: Fotos,
-          as: 'fotos', // Especifica el alias utilizado en la asociación
+          as: "fotos", // Especifica el alias utilizado en la asociación
         },
         {
           model: Provincias,
@@ -30,12 +30,12 @@ route.get("/", async (req, res) => {
     if (ubicacion) {
       const busqueda = inmuebles.filter((el) =>
         el.ubicacion.toLowerCase().includes(ubicacion.toLowerCase())
-      )
-        busqueda.length?
-         res.status(200).json(busqueda)
+      );
+      busqueda.length
+        ? res.status(200).json(busqueda)
         : res.status(400).json("no se encontraron datos");
     } else {
-       const data = await inmuebles.map((i) => {
+      /*  const data = await inmuebles?.map((i) => {
       return {
         id: i.id,
         titulo: i.titulo,
@@ -52,11 +52,10 @@ route.get("/", async (req, res) => {
         provincia: i.Provincia.nombre_prov,
         usuario:i.Usuario.id
        
-      };
-    }); 
- 
-      data.length
-        ? res.status(200).json(data)
+      }; */
+
+      inmuebles.length
+        ? res.status(200).json(inmuebles)
         : res.status(400).json({ msg: "La base de datos esta vacia" });
     }
   } catch (error) {
@@ -78,7 +77,7 @@ route.post("/publicar", async (req, res) => {
     propiedadId,
     provinciaId,
     usuarioId,
-    fecha_publicacion
+    fecha_publicacion,
   } = req.body;
 
   try {
@@ -91,17 +90,24 @@ route.post("/publicar", async (req, res) => {
       antiguedad,
       ambientes,
       operacion,
-      fecha_publicacion: Date.now()
+      fecha_publicacion: Date.now(),
     });
 
-   // Crear y asociar las fotos al inmueble
-const fotosCreatePromises = fotos.map((fotoUrl) => {
-  return Fotos.create({ url: fotoUrl })
-    .then((foto) => InmuebleCreate.addFoto(foto));
-});          
+    // Crear y asociar las fotos al inmueble
+    const fotosCreatePromises = fotos.map(async (fotoUrl) => {
+      try {
+        const foto = await Fotos.create({ url: fotoUrl });
+        return foto;
+      } catch (error) {
+        // Manejar cualquier error que pueda ocurrir al crear la foto
+        console.error("Error al crear la foto:", error.message);
+      }
+    });
 
-// Esperar a que se completen todas las promesas de creación y asociación de las fotos
-await Promise.all(fotosCreatePromises);
+    // Esperar a que se completen todas las promesas de creación de fotos
+    const fotosCreadas = await Promise.all(fotosCreatePromises);
+    await InmuebleCreate.setFotos(fotosCreadas);
+    // Asociar las fotos creadas al inmueble
 
     // Asociar provincia, propiedad y usuario si se proporcionaron los IDs
     if (provinciaId) {
@@ -133,44 +139,43 @@ await Promise.all(fotosCreatePromises);
 
 //put inmueble
 route.put("/:id", async (req, res) => {
- 
-  try{
+  try {
     const selectedinmueble = await Inmuebles.findOne({
       where: {
-        id: req.params.id
-      }
-  
+        id: req.params.id,
+      },
     });
-    // Si se encuentra el inmueble (selectedinmueble), se procede a actualizarlo.  
+    // Si se encuentra el inmueble (selectedinmueble), se procede a actualizarlo.
     if (selectedinmueble) {
-    // se crea una copia de los datos del cuerpo de la solicitud usando { ...req.body } y se almacena en data.
-      let data = { ...req.body }
-    // se obtienen las claves (propiedades) del objeto data usando Object.keys(data).
+      // se crea una copia de los datos del cuerpo de la solicitud usando { ...req.body } y se almacena en data.
+      let data = { ...req.body };
+      // se obtienen las claves (propiedades) del objeto data usando Object.keys(data).
       let keys = Object.keys(data);
-   //Se itera sobre las claves utilizando keys.forEach(k => { ... }). Dentro del bucle, se asignan los valores correspondientes 
-   //de data a las propiedades del objeto selectedinmueble utilizando selectedinmueble[k] = data[k].
-      keys.forEach(k => {
-        selectedinmueble[k] = data[k]
+      //Se itera sobre las claves utilizando keys.forEach(k => { ... }). Dentro del bucle, se asignan los valores correspondientes
+      //de data a las propiedades del objeto selectedinmueble utilizando selectedinmueble[k] = data[k].
+      keys.forEach((k) => {
+        selectedinmueble[k] = data[k];
       });
-  
-      await selectedinmueble.save()
-  
-      res.status(200).send(selectedinmueble)
+
+      await selectedinmueble.save();
+
+      res.status(200).send(selectedinmueble);
     } else {
-      res.status(404).send("not found")
-    }}catch(error){
-      res.status(400).json({error: error.message})
+      res.status(404).send("not found");
     }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
-route.get("/:id", async (req,res)=>{
-  const {id}= req.params
+route.get("/:id", async (req, res) => {
+  const { id } = req.params;
   try {
     const detalle = await Inmuebles.findByPk(id, {
       include: [
         {
           model: Fotos,
-          as: 'fotos', // Especifica el alias utilizado en la asociación
+          as: "fotos", // Especifica el alias utilizado en la asociación
         },
         {
           model: Provincias,
@@ -190,9 +195,9 @@ route.get("/:id", async (req,res)=>{
       res.status(404).json({ msg: "No se encontró el inmueble" });
     }
   } catch (error) {
-    res.status(400).json({error: error.message})
+    res.status(400).json({ error: error.message });
   }
-})
+});
 
 route.get("/publicaciones/:id", async (req, res) => {
   try {
@@ -201,48 +206,40 @@ route.get("/publicaciones/:id", async (req, res) => {
       include: [
         {
           model: Fotos,
-          as: 'fotos'
-        }
+          as: "fotos",
+        },
       ],
       where: {
-        usuarioId: id
-      }
+        usuarioId: id,
+      },
     });
     const primeraFoto = publicacion[0].fotos[0];
     const urlFoto = primeraFoto.url;
-    const datosPublicacion =[]
+    const datosPublicacion = [];
 
     for (let i = 0; i < publicacion.length; i++) {
-      datosPublicacion.push(publicacion[i])
-      
+      datosPublicacion.push(publicacion[i]);
     }
 
-
-
-      res.status(200).json(datosPublicacion);
-   
+    res.status(200).json(datosPublicacion);
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
 });
 
-
-route.delete("/publicaciones/:id", async(req,res)=>{
+route.delete("/publicaciones/:id", async (req, res) => {
   try {
-    const publicacion= Inmuebles.destroy({
-     where :{
-       id: req.params.id
-     }
-    })
-   
-    res.status(200).json({msg:"Publicacion eliminada con exito!"})
-   
-    
-  } catch (error) {
-    res.status(400).json({msg:"Error al eliminar publicacion "})
-  }
-})
+    const publicacion = Inmuebles.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
 
+    res.status(200).json({ msg: "Publicacion eliminada con exito!" });
+  } catch (error) {
+    res.status(400).json({ msg: "Error al eliminar publicacion " });
+  }
+});
 
 // Ruta para eliminar una foto de un inmueble
 route.delete("/:inmuebleId/fotos/:fotoId", async (req, res) => {
@@ -260,8 +257,8 @@ route.delete("/:inmuebleId/fotos/:fotoId", async (req, res) => {
     const foto = await Fotos.findOne({
       where: {
         id: fotoId,
-        inmuebleId: inmuebleId
-      }
+        inmuebleId: inmuebleId,
+      },
     });
     if (!foto) {
       return res.status(404).send("Foto not found");

@@ -33,13 +33,13 @@ export const get_All_Inmuebles = () => {
       try {
         const response = await axios.get("http://localhost:3001/inmuebles");
         const inmuebles = response.data;
-        console.log(inmuebles);
+       // console.log(inmuebles);
         dispatch({ 
             type: TYPES.GET_INMUEBLES,
             payload: inmuebles
          });
       } catch (error) {
-        console.log(error);
+       throw error
       }
     };
   };
@@ -48,7 +48,7 @@ export const get_All_Inmuebles = () => {
       try {
         const response = await axios.get("http://localhost:3001/provincias");
         const prov = response.data;
-      console.log(prov);
+     // console.log(prov);
         dispatch({ 
             type: TYPES.GET_ALL_PROVINCIAS,
             payload: prov
@@ -63,7 +63,7 @@ export const get_All_Inmuebles = () => {
       try {
         const response = await axios.get("http://localhost:3001/propiedad");
         const prop= response.data;
-      console.log(prop);
+     // console.log(prop);
         dispatch({ 
             type: TYPES.GET_ALL_PROPIEDAD,
             payload: prop
@@ -110,7 +110,7 @@ export const get_Inmueble = (id) => {
     try {
       const response = await axios.get("http://localhost:3001/inmuebles/"+ id);
       const inmueble = response.data;
-      console.log(inmueble);
+     // console.log(inmueble);
       dispatch({ 
           type: TYPES.GET_INMUEBLE_DETAIL,
           payload: inmueble
@@ -189,7 +189,7 @@ return async (dispatch) => {
 export function LoginSuccess(data){
   return async function(dispatch){
     window.localStorage.setItem("user-log", JSON.stringify(data))
-    console.log(data);
+    //console.log(data);
     dispatch({
       type:TYPES.LOGIN_SUCCESS,
       payload: data
@@ -209,7 +209,7 @@ export const publicar_Inmueble= (inmueble) => {
   return async (dispatch) => {
     try {
      const inmueb=  await axios.post("http://localhost:3001/inmuebles/publicar",inmueble);
-     console.log(inmueb)
+    // console.log(inmueb)
       dispatch({ 
           type: TYPES.PUBLICAR_INMUEBLE
         
@@ -256,7 +256,7 @@ export const publicar_Inmueble= (inmueble) => {
     return async (dispatch) => {
       try {
        const publicaciones=  await axios.get(`http://localhost:3001/inmuebles/publicaciones/${id}`); 
-      console.log(publicaciones.data);
+     // console.log(publicaciones.data);
         dispatch({ 
             type: TYPES.MIS_PUBLICACIONES,
             payload:publicaciones.data
@@ -303,10 +303,15 @@ export const publicar_Inmueble= (inmueble) => {
     return async (dispatch) => {
       try {
         await axios.put(`http://localhost:3001/usuarios/editar/${id}`, data);
-  
+   // Actualizar los datos en el localStorage
+   const storedUserData = localStorage.getItem('user-log');
+   const userData = JSON.parse(storedUserData);
+   const updatedUserData = { ...userData, ...data };
+   localStorage.setItem('user-log', JSON.stringify(updatedUserData));
+
         dispatch({
           type: TYPES.ACTUALIZAR_PERFIL,
-         payload: data 
+         payload: updatedUserData
         });
       } catch (error) {
         console.log("Ocurrió un error en la solicitud:", error.response.data);

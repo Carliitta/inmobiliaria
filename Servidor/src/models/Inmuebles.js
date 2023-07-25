@@ -57,6 +57,7 @@ const sequelize = require("../database/db.js")
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+    
     },
     url: {
       type: DataTypes.STRING,

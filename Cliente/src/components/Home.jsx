@@ -46,18 +46,18 @@ const Home = () => {
               <Card key={inmueble?.id}
                 id={inmueble?.id}
                 titulo={inmueble?.titulo}
-                provincia={inmueble?.provincia}
+                provincia={inmueble?.Provincia?.nombre_prov}
                 ubicacion={inmueble?.ubicacion}
                 precio={inmueble?.precio}
                 fotos={inmueble?.fotos?.url ||inmueble?.fotos[0]?.url }
               />
             ))
           ) : (
-            /* <div className="loadingDiv">
+            <div className="loadingDiv">
               <p className="spinner"></p>
               <p className="loadingp">Cargando...</p>
-            </div> */
-            < NotFount/>
+            </div>
+           /*  < NotFount/> */
           )}
         </div>
       </div>

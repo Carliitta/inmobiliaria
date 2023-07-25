@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ImageUpload from './SubirFotos'
 import {  Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
-import { get_All_Provincias, get_All_Propiedad, publicar_Inmueble } from '../Redux/actions'
+import { get_All_Provincias, get_All_Propiedad, publicar_Inmueble, deleteFoto } from '../Redux/actions'
 import Swal from 'sweetalert2';
 import {BsFillArrowLeftSquareFill} from "react-icons/bs"
 import Footer from './Footer';
@@ -27,7 +27,7 @@ const Publicar = () => {
   const [filtroProv, setFiltroprov] = useState('--Seleccione una Provincia');
   const [filtroOpe, setFiltroOpe] = useState('--Seleccione tipo de Operacion');
   const [filtroProp, setFiltroprop] = useState('--Seleccione tipo de Propiedad');
-  const storedUserData = localStorage.getItem("loggedInUser");
+  const storedUserData = localStorage.getItem("user-log");
   const userData = JSON.parse(storedUserData);
   const [selectProvincia, setSelectProvincia] = useState('')
   const [selectPropiedad, setSelectPropiedad] = useState('')
@@ -39,10 +39,12 @@ const Publicar = () => {
   useEffect(() => {
     dispatch(get_All_Provincias());
     dispatch(get_All_Propiedad());
-   console.log(userData);
   }, []);
 
-  
+  useEffect(() => {
+    // Esta función se ejecutará cada vez que selectImg se actualice en ImageUpload
+   // console.log('selectImg actualizado en Publicar:', selectImg);
+  }, [selectImg]);
   const submitForm = async (e) => {
     e.preventDefault()
     try {
@@ -75,7 +77,7 @@ const Publicar = () => {
           title: '¡Perfecto!',
           text: 'Publicado correctamente',
         });
-        console.log(formData);
+       // console.log(formData, console.log(selectImg));
         setFiltroprov(filtroProv)
         setFiltroOpe(filtroOpe)
         setFiltroprop(filtroProp)
@@ -108,12 +110,16 @@ const Publicar = () => {
         <Link to={"/"}>
         <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px',color:'#80808096'}}/>
     </Link>
-      {console.log(selectImg)}
+     {/*  {console.log(selectImg)} */}
       <form className='container p-3  mt-3 mb-3 ' style={{ width: '700px', borderRadius:'20px', backgroundColor:'#ffe307cf' }} onSubmit={submitForm}>
       <h3 className='text-center p-1 '>Formulario de publicacion</h3>
         <div className="mb-3">
           <label htmlFor="" className="form-label">Titulo</label>
           <input type="text" className="form-control" name='titulo' value={formData.titulo} onChange={handleChange} />
+        </div>
+        <div className="mb-3">
+        <ImageUpload selected={setSelectImg} onDelete={deleteFoto} fotos={selectImg} inmuebleId={formData.id} />
+
         </div>
         <div className="mb-3">
           <label htmlFor="" className="form-label">Descripcion</label>
@@ -175,11 +181,9 @@ const Publicar = () => {
           <label htmlFor="" className="form-label">Antiguedad (Meses/Años/a estrenar..)</label>
           <input name='antiguedad' type="text" className="form-control" value={formData.antiguedad} onChange={handleChange} />
         </div>
-        <div className="mb-3">
-          <ImageUpload selected={setSelectImg} />
-        </div>
+      
         <div class="d-grid gap-2">
-        <button type="submit" className="btn btn-info btn-lg " style={{backgroundColor:'black', color:"white"}}>Publicar Inmueble</button>
+        <button id='submit' type="submit" className="btn btn-info btn-lg " style={{backgroundColor:'black', color:"white"}}>Publicar Inmueble</button>
        </div>    
       </form>
     </div>

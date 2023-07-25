@@ -18,14 +18,34 @@ const dispatch = useDispatch()
     codigo: "",
   });
   const [seePassword, setSeePassword] = useState(false);
-
+  const [error, setError] = useState({
+    correo:'',
+    codigo:''
+  });
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      //console.log(error);
+      if(error.codigo){
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'La contraseña debe tener al menos 5 caracteress',
+        });
+      }
+      if(error.correo){
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Por favor, ingrese un correo valido',
+        });
+      }
+    
       if (!formData.nombre || !formData.codigo || !formData.correo) {
         Swal.fire({
           icon: 'error',
@@ -44,6 +64,7 @@ const dispatch = useDispatch()
           codigo: '',
           correo: '',
         });
+        setError({codigo:'', correo:''})
       }
     } catch (error) {
       let errorMessage = 'Ha ocurrido un error';
@@ -58,12 +79,41 @@ const dispatch = useDispatch()
     }
   };
   
+  const Validations =(e)=>{
+    const { name, value } = e.target;
+  // correo (email)
+    if (name === "correo") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        setError({codigo:'Por favor, ingrese un correo válido'})
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Por favor, ingrese un correo válido.",
+        });
+        return;
+      }
+    }
+
+   // codigo (password)
+    if (name === "codigo") {
+      if (value.length < 5) {
+        setError({codigo:'La contraseña debe tener al menos 5 caracteres.'})
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "La contraseña debe tener al menos 5 caracteres.",
+        });
+        return;
+      }
+    }
+  }
 
   return (
     <>
   
    <div  className="d-flex flex-column min-vh-100" >
-   
+ {/*   {console.log(error)} */}
       <Link to={"/"} style={{display :'flex', justifyContent:'center'}}>
         <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px', color:'#80808096', marginTop:"5px"}}/>
     </Link>
@@ -77,7 +127,7 @@ const dispatch = useDispatch()
             className="form-control mb-3 "
             value={formData.nombre}
             onChange={handleChange}
-           
+          
           />
           
            <label  htmlFor="useremail">Correo:</label>
@@ -88,7 +138,7 @@ const dispatch = useDispatch()
             name="correo"
             value={formData.correo}
             onChange={handleChange}
-          
+            onBlur={Validations}
           />
 
           <label htmlFor="password">Contraseña:</label>
@@ -99,7 +149,7 @@ const dispatch = useDispatch()
             className="form-control mb-3"
             value={formData.codigo}
             onChange={handleChange}
-            
+            onBlur={Validations}
           />
            <span
             onClick={() => {

@@ -17,20 +17,22 @@ const [buscando, setBuscando] = useState(false);
 const [loggedInUser, setLoggedInUser] = useState(null);
 
 const dispatch= useDispatch()
-const user = localStorage.getItem("loggedInUser");
-
+const usuario = localStorage.getItem("user-log");
+const user= usuario?.data_user
 useEffect(() => {
-  // Check for logged-in user in local storage when the component mounts
-  if (user) {
-    setLoggedInUser(JSON.parse(user));
+
+  if (usuario) {
+    setLoggedInUser(JSON.parse(usuario));
   }
-  console.log("usuario",user);
-}, []);
+/*   console.log("usuario",usuario);
+  console.log("usuariooo",loggedInUser);
+ */
+}, [usuario]);
 
 const handleLoginSuccess = (user) => {
   
   setLoggedInUser(user);
-  localStorage.setItem("loggedInUser", JSON.stringify(user));
+  localStorage.setItem("user-log", JSON.stringify(user));
 };
  const buscarInmueble=(e)=>{
     e.preventDefault()
@@ -38,7 +40,7 @@ const handleLoginSuccess = (user) => {
       dispatch(search_Inmuebles(search));
       setBuscando(false);
       setSearch('')
-      console.log(inmuebles);
+      //console.log(inmuebles);
  }
  const clearSearch=()=>{
   dispatch(clear_error())

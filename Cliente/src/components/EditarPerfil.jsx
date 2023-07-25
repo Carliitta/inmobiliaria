@@ -12,31 +12,63 @@ import { BsEyeSlash, BsEye } from "react-icons/bs";
 
 const EditarPerfil = () => {
     const dispatch = useDispatch()
-    const user = JSON.parse(window.localStorage.getItem("loggedInUser"));
-  const [formData, setFormData] = useState({
+
+ /*    const  user= useSelector((state)=>state.user)
+    const dataUser= user?.data_user */
+    const storedUserData = localStorage.getItem('user-log');
+    const dataUser= JSON.parse(storedUserData); 
+    const [formData, setFormData] = useState({
     nombre: "",
     correo:"",
     codigo: "",
   });
   const [seePassword, setSeePassword] = useState(false);
   useEffect(() => {
-  
+  console.log(dataUser);
      setFormData({
-       nombre: user.nombre || '',
-       correo: user.correo|| '',
-       codigo:user.codigo ||''
+       nombre:dataUser.nombre || '',
+       correo:dataUser.correo|| '',
+       codigo:dataUser.codigo ||''
    })
 
-
- console.log(user);
  }, [])
   const handleChange = (e) => {
+   
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const Validations =(e)=>{
+    const { name, value } = e.target;
+  // correo (email)
+    if (name === "correo") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Por favor, ingrese un correo válido.",
+        });
+        return;
+      }
+    }
+
+   // codigo (password)
+    if (name === "codigo") {
+      if (value.length < 5) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "La contraseña debe tener al menos 5 caracteres.",
+        });
+        return;
+      }
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updateForm={
+         id:dataUser.id,
         nombre: formData.nombre,
         correo: formData.correo,
         codigo: formData.codigo,
@@ -49,8 +81,9 @@ const EditarPerfil = () => {
           text: 'Los campos no pueden estar vacios',
         });
       } else {
-        await dispatch(update_Profile(user?.id,window.localStorage.setItem("loggedInUser", JSON.stringify(updateForm))));
-      
+       await dispatch(update_Profile(dataUser?.id,window.localStorage.setItem("user-log", JSON.stringify(updateForm))));
+      // Guardar los nuevos datos del usuario en el localStorage
+       localStorage.setItem('user-log', JSON.stringify(updateForm));
         Swal.fire({
           icon: 'success',
           title: '¡Perfecto!',
@@ -103,7 +136,7 @@ const EditarPerfil = () => {
              name="correo"
              value={formData.correo}
              onChange={handleChange}
-           
+             onBlur={Validations}
            />
  
            <label htmlFor="password">Contraseña:</label>
@@ -115,7 +148,7 @@ const EditarPerfil = () => {
              value={formData.codigo}
              readOnly
              onChange={handleChange}
-             
+             onBlur={Validations}
            />
             <span
              onClick={() => {

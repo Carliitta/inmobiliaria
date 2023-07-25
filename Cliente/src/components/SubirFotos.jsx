@@ -6,8 +6,9 @@ import React, { useState, useEffect } from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
 
 const ImageUpload = ({ selected, onDelete, fotos, inmuebleId }) => {
-  const [previewImages, setPreviewImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState(fotos || []);
   const dispatch = useDispatch();
+  const [idCounter, setIdCounter] = useState(0);
 
   useEffect(() => {
     setPreviewImages(fotos || []);
@@ -16,25 +17,33 @@ const ImageUpload = ({ selected, onDelete, fotos, inmuebleId }) => {
   const handleImageChange = async (event) => {
     const files = event.target.files;
     const images = [];
-
+    
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const data = new FormData();
       data.append('file', file);
       data.append('upload_preset', 'inmuebles');
-
+  
       const response = await axios.post(
         'https://api.cloudinary.com/v1_1/dwfhsitwe/image/upload',
         data
       );
       const imageUrl = response.data.secure_url;
-
-      images.push(imageUrl);
+  
+      const newImage = {
+        id: idCounter + i,
+        url: imageUrl,
+      };
+      
+      images.push(newImage);
     }
-
+  console.log(previewImages);
+    setIdCounter(idCounter + files.length);
     setPreviewImages((prevImages) => [...prevImages, ...images]);
-    selected(images.map((url) => ({ id: null, url })));
+    selected(images.map(img => img.url));
+    console.log(images);
   };
+  
 
   const handleImageDelete = (index, fotoId) => {
     const updatedImages = [...previewImages];
@@ -44,7 +53,7 @@ const ImageUpload = ({ selected, onDelete, fotos, inmuebleId }) => {
     // Llamar a la acción deleteFoto para eliminar la foto del inmueble
     dispatch(deleteFoto(inmuebleId, fotoId));
 
-    onDelete(index); // Realizar otras acciones necesarias después de eliminar la foto
+    onDelete(index); 
   };
 
   return (
@@ -59,11 +68,11 @@ const ImageUpload = ({ selected, onDelete, fotos, inmuebleId }) => {
         multiple
         onChange={handleImageChange}
       />
-      <div id="preview">
+      <div id="preview" style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr', marginTop:'5px'}}>
         {previewImages.map((image, index) => (
           <div key={index} style={{ display: 'flex' }}>
             <img
-              src={image.url}
+              src={image}
               alt={`Preview ${index + 1}`}
               style={{
                 maxWidth: '100px',
@@ -71,9 +80,10 @@ const ImageUpload = ({ selected, onDelete, fotos, inmuebleId }) => {
                 border: 'solid',
                 borderColor: 'beige',
                 borderWidth: '1px',
+                scroll:'auto'
               }}
             />
-            <button
+            <button className="btneliminar"
               style={{ border: 'none', background: 'none' }}
               onClick={() => handleImageDelete(index, fotos[index].id)}
             >

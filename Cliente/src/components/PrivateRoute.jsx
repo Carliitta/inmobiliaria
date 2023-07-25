@@ -5,8 +5,8 @@ import { Navigate, Outlet } from "react-router-dom";
 
 
 export default function PrivateRoute() {
-  const user = JSON.parse(window.localStorage.getItem("loggedInUser"));
-  console.log(user);
+  const user = JSON.parse(window.localStorage.getItem("user-log"));
+ // console.log(user);
     if (!user) {
       return <Navigate to="/" />;
     }
