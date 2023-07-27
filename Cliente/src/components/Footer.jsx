@@ -4,7 +4,7 @@ import Logo from "../utils/logo.png";
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-    <footer className="footer  opacity-85 " style={{ height:'200px', backgroundColor:'#80808096'}}>
+    <footer className="footer  opacity-85 " style={{ height:'300px', backgroundColor:'#80808096'}}>
     <div className="container pt-3 " >
        <div className="container-fluid ">
         <Link to={"/"}   >
@@ -35,9 +35,6 @@ const Footer = () => {
         Desarrolladora
         </Link>
 
-      </div>
-      
-  
       <span title="Dato ficticio" className="d-inline-block"style={{ float: 'right' }} >
       Contacto <br></br>
       Escribenos a InmoLandia@gmail.com <br></br>
@@ -47,6 +44,9 @@ const Footer = () => {
       <FaInstagram style={{ fontSize: '25px' ,color:'white'}}/>
       </span>
       </span>
+      </div>
+      
+  
      
     </div>
      <p className="copiright" style={{ display: 'block', textAlign: 'center', marginLeft:'25%' ,marginBottom:"5px"}}><strong >Copiright-2023.</strong></p> 

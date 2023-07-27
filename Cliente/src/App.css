@@ -170,7 +170,7 @@ select:hover {
 /*!----------------- Footer -------------------------*/
 @media screen and (max-width: 768px) {
   footer {
-    height: 360px !important;
+    height: 450px !important;
     padding: 20px;
   }
 
@@ -178,7 +178,10 @@ select:hover {
     flex-direction: column;
     align-items: center;
   }
+.footer-links .d-inline-block{
+float: left !important;
 
+}
   .footer-content {
     width: 100%;
     text-align: center;
@@ -187,17 +190,17 @@ select:hover {
 
   .footer-links {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start
   }
 
   .footer-links {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     margin-bottom: 10px;
   }
   .footer-links a {
-    margin-right: 10px !important;
+    margin-bottom: 10px !important;
   }
   .d-inline-block {
     float: none !important;
