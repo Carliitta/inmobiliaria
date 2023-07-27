@@ -39,7 +39,6 @@
 /* Cambiar el color de la barra de desplazamiento */
 ::-webkit-scrollbar {
   width: 12px; /* Ancho de la barra de desplazamiento */
- 
 }
 
 /* Cambiar el color del pulgar de la barra de desplazamiento */
@@ -52,25 +51,23 @@
 .card-hover:hover {
   transform: scale(1.01);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  filter: sepia(40%)
+  filter: sepia(40%);
 }
 
 /* loading */
-.loadingDiv{
+.loadingDiv {
   margin: 0;
   background-position: 80px;
   min-height: 800px;
   display: block;
   padding: 20px;
 }
-.loadingp{
- 
+.loadingp {
   text-align: center;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 20px;
   color: rgb(7, 7, 7);
   padding: 5px;
- 
 }
 
 .spinner {
@@ -81,7 +78,6 @@
   border-radius: 50%;
   border-left-color: rgb(246, 249, 252);
   animation: spin 1s ease infinite;
- 
 }
 
 @keyframes spin {
@@ -95,13 +91,179 @@
 }
 
 /* select */
-select{
+select {
   width: auto;
   padding: 3px;
   border-radius: 20px;
   cursor: pointer;
 }
-select:hover{
+select:hover {
   background-color: #ffe307cf;
-  color:rgb(10, 10, 10)
+  color: rgb(10, 10, 10);
+}
+.input-menu {
+  width: 50%;
+}
+.input-menu form {
+  width: 80%;
+}
+
+/*?----------------- HOME -------------------------*/
+@media screen and (max-width: 768px) {
+  .container-sm {
+  }
+  .row {
+    flex-direction: column;
+  }
+}
+
+/*!----------------- CARD -------------------------*/
+@media screen and (max-width: 768px) {
+  .card-hover {
+    width: 22rem !important;
+  }
+  .card-hover .card-body {
+    height: 220px !important;
+  }
+  .card-body p {
+    font-size: 18px !important;
+  }
+}
+
+/**----------------- Nav -------------------------*/
+@media screen and (max-width: 768px) {
+  .container-fluid {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .d-flex {
+    margin-left: 5px;
+  }
+  .img-fluid {
+    width: 40% !important;
+  }
+  .navbar-toggler {
+    font-size: 45px;
+    color: #61dafb;
+    border: none;
+  }
+  .nav-item {
+    margin: 10px;
+    padding: 10px;
+    text-align: right;
+  }
+  .input-menu {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .input-menu form {
+    width: 85%;
+  }
+}
+/*?----------------- Filtos -------------------------*/
+@media screen and (max-width: 768px) {
+  .selected {
+    margin-top: 20px;
+  }
+}
+/*!----------------- Footer -------------------------*/
+@media screen and (max-width: 768px) {
+  footer {
+    height: 360px !important;
+    padding: 20px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-content {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  }
+  .footer-links a {
+    margin-right: 10px !important;
+  }
+  .d-inline-block {
+    float: none !important;
+  }
+  .copiright {
+    margin-left: 10% !important;
+  }
+  .social-icons {
+    margin-top: 10px;
+  }
+  .fs-6 {
+    width: 90% !important;
+    margin-bottom: 10px;
+  }
+}
+/**----------------- Detalle -------------------------*/
+@media screen and (max-width: 768px) {
+  .carousel-inner img {
+    width: 400px !important;
+    height: 300px !important;
+  }
+  .info {
+    width: 350px !important;
+  }
+}
+/*!----------------- Info -------------------------*/
+@media screen and (max-width: 768px) {
+  .card {
+    width: 350px !important;
+  }
+  .card-body {
+    padding: 5px !important;
+  }
+  .card-body .fs-5 {
+  }
+  .card-body .container {
+    width: 300px !important;
+    padding: 1px !important;
+  }
+  .carli {
+    padding: 50px !important;
+  }
+  .carli .card {
+    width: 320px !important;
+  }
+}
+/**----------------- Publicar-------------------------*/
+@media screen and (max-width: 768px) {
+  .publicar {
+    max-width: 360px !important;
+  }
+}
+/**-----------------Mis Publicaciones-------------------------*/
+@media screen and (max-width: 768px) {
+  .publicaciones {
+    display: block !important;
+    margin-left: 3%;
+  }
+  .publicaciones .card {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+  }
+}
+/**-----------------Registro-------------------------*/
+@media screen and (max-width: 768px) {
+  .User {
+    width: 350px !important;
+  }
 }
