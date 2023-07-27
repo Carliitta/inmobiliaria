@@ -71,7 +71,7 @@ const Login = ({ isOpen, toggle, onLoginSuccess, loggedInUser }) => {
         }
       }
     }).catch((response) => {
-      // console.log(response)
+      console.log(response)
       return Swal.fire({
         icon: 'error',
         title: 'Ups, ocurrio un error',

@@ -71,13 +71,13 @@ setTimeout(function(){
 
   return (
     <>
-    <div className="d-flex flex-column min-vh-100" style={{  alignItems: 'center'}}>
+    <div className=" d-flex flex-column min-vh-100" style={{  alignItems: 'center'}}>
 
     <h2 className="text-center mt-2 ">Mis publicaciones</h2> <br />
     <Link to={"/"} style={{display :'flex', justifyContent:'center'}}>
         <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'10px',color:'#80808096'}}/>
     </Link>
-    <div className="container mb-3" style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr', gap:'10px' }}>
+    <div className="publicaciones container mb-3" style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr', gap:'10px' }}>
   
    {
     publicaciones.length?

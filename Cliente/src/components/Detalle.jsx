@@ -102,7 +102,7 @@ if(!detail){
 
    {/* Informacion */}
       
-      <div className="card text-center mx-auto mt-4 p-1 " style={{width:'1200px' , }}>
+      <div className="info card text-center mx-auto mt-4 p-1 " style={{width:'1200px' , }}>
         <div className="card-body align-items-start mx-auto">
 
        <p className="text-start">Fecha de publicación: {detail?.fecha_publicacion?.slice(0,10)}</p>

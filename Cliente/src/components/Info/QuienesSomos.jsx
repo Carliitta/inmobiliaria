@@ -11,7 +11,7 @@ const QuienesSomos = () => {
     </Link>
     <div className="card b-3 p-2  mb-2" style={{ width: '1200px', alignItems: 'center',backgroundColor:'#ffe307cf' }}>
       <h2 className="fw-bolder fs-3 mb-5">Quiénes somos?</h2>
-      <div  style={{ padding: '40px' }}>
+      <div className="card-body"  style={{ padding: '40px' }}>
         <p className="fs-5">
           Somos <b>Inmolandia</b>, una reconocida inmobiliaria especializada en ventas y alquiler de propiedades. Nuestro objetivo es ayudar a nuestros clientes a encontrar el hogar de sus sueños o invertir en propiedades rentables.
         </p>

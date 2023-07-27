@@ -11,7 +11,7 @@ const QuieroVender = () => {
     </Link>
       <div className="card b-3 p-2  mb-2" style={{ width: '1200px', alignItems: 'center', backgroundColor:'#ffe307cf' }}>
         <h2 className="fw-bolder fs-3 mb-5">Quiero Vender</h2>
-        <div style={{ padding: '40px' }}>
+        <div className='card-body' style={{ padding: '40px' }}>
           <p className="fs-5">
             ¡Gracias por elegir Inmolandia para vender tu propiedad! Para poder publicar tu inmueble en nuestra plataforma, necesitas <b> crear una cuenta</b> en nuestra página.
           </p>

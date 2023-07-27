@@ -64,7 +64,7 @@ const Soporte = () => {
     </Link>
       <div  className="card b-3 p-2  mb-2" style={{ width: '800px', alignItems: 'center', backgroundColor:'#ffe307cf' }}>
         <h2 className="fw-bolder fs-3 ">Soporte</h2>
-        <div style={{ padding: '40px' }}>
+        <div  className='card-body' style={{ padding: '40px' }}>
           <p className="fs-5 ">
             ¿Tienes algún problema o pregunta? ¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.
           </p>

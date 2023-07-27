@@ -61,9 +61,9 @@ const Filtros = ({setPagina}) => {
 
  
   return (
-    <nav className="navbar justify-content-center ">
+    <nav className="selected navbar justify-content-center ">
     
-      <div className="dropdown m-1">
+      <div className=" dropdown m-1">
         <select onChange={filtrarProvincia}>
           <option className="dropdown-menu" value="">
             {filtroProv}

@@ -111,7 +111,7 @@ const Publicar = () => {
         <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px',color:'#80808096'}}/>
     </Link>
      {/*  {console.log(selectImg)} */}
-      <form className='container p-3  mt-3 mb-3 ' style={{ width: '700px', borderRadius:'20px', backgroundColor:'#ffe307cf' }} onSubmit={submitForm}>
+      <form className='publicar container p-3  mt-3 mb-3 ' style={{ width: '700px', borderRadius:'20px', backgroundColor:'#ffe307cf' }} onSubmit={submitForm}>
       <h3 className='text-center p-1 '>Formulario de publicacion</h3>
         <div className="mb-3">
           <label htmlFor="" className="form-label">Titulo</label>

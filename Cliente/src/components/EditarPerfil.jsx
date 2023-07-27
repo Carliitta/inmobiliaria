@@ -115,7 +115,7 @@ const EditarPerfil = () => {
        <Link to={"/"} style={{display :'flex', justifyContent:'center'}}>
          <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px', color:'#80808096', marginTop:"5px"}}/>
      </Link>
-         <form className="container p-4  mt-4 mb-3" style={{ width: '450px', borderRadius:'20px', backgroundColor:'#ffe307cf' }} onSubmit={handleSubmit}>
+         <form className="User container p-4  mt-4 mb-3" style={{ width: '450px', borderRadius:'20px', backgroundColor:'#ffe307cf' }} onSubmit={handleSubmit}>
              <h3 className=" mb-4 text-center ">Editar perfil<IoIosCreate/></h3>
            <label  htmlFor="username">Nombre:</label>
            <input

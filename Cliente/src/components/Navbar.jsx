@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import Filtros from "../components/Filtros";
 import {AiOutlineUser} from "react-icons/ai"
-import {BsSearch} from "react-icons/bs"
+import {BsSearch} from "react-icons/bs";
+import {AiOutlineMenu} from 'react-icons/ai'
 import CrearUsuario from "./CrearUsuario";
 import Login from "./Login";
 export const Navbar = ({isOpen, toggle, setPagina}) => {
@@ -19,6 +20,12 @@ const [loggedInUser, setLoggedInUser] = useState(null);
 const dispatch= useDispatch()
 const usuario = localStorage.getItem("user-log");
 const user= usuario?.data_user
+const [menuOpen, setMenuOpen] = useState(false);
+
+
+const handleMenuToggle = () => {
+  setMenuOpen(!menuOpen);
+};
 useEffect(() => {
 
   if (usuario) {
@@ -53,7 +60,8 @@ const handleLoginSuccess = (user) => {
     <nav className="navbar navbar-expand-lg fixed-top p-2 " style={{backgroundColor:'#ffe307cf'}}>
       
       <div className="container-fluid ">
-        <Link to="/" className=" w-10 ml-4" href="#" onClick={clearSearch} >
+
+        <Link to="/" className="ml-2" href="#" onClick={clearSearch} >
           <img
             className="img-fluid "
             style={{ width: "50%" }}
@@ -61,6 +69,8 @@ const handleLoginSuccess = (user) => {
             alt="logo"
           />
         </Link>
+<div className="input-menu">
+
 
         <form className="d-flex px-2 col-4" style={{position: "relative"}} role="search" >
           <input
@@ -80,7 +90,17 @@ const handleLoginSuccess = (user) => {
             <BsSearch style={{fontSize:"20px"}}/>
           </button>
         </form>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      
+          {/* Hamburger Menu */}
+          <AiOutlineMenu className="navbar-toggler" type="button" onClick={handleMenuToggle}>
+         
+          <span style={{ background: menuOpen ? "transparent" : "#333" }}></span>
+          <span style={{ background: menuOpen ? "transparent" : "#333" }}></span>
+          <span style={{ background: menuOpen ? "transparent" : "#333" }}></span>
+     
+        </AiOutlineMenu>
+</div>
+        <div className={`collapse navbar-collapse ${menuOpen ? "show" : ""}`} id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
            
            
@@ -145,7 +165,7 @@ const handleLoginSuccess = (user) => {
       </div>
     </nav>
     <div style={{marginTop:'110px'}}>
-    {inmuebles && inmuebles.length > 0 && <Filtros setPagina={setPagina} />}
+     {inmuebles && inmuebles.length > 0 && <Filtros setPagina={setPagina} />} 
 
     </div>
     </>
