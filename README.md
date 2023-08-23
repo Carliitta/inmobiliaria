@@ -43,8 +43,7 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
    ```
 
 4. **Configurar la Base de Datos:**
- Crea una base de datos en PostgreSQL y configura las credenciales en el archivo Servidor/src/database/db.js.
- Asegúrate de que tu servidor PostgreSQL esté en funcionamiento. Las credenciales de la base de datos se cargarán automáticamente desde el archivo `.env`.
+ Crea una base de datos en PostgreSQL y Asegúrate de que tu servidor PostgreSQL esté en funcionamiento. Las credenciales de la base de datos se cargarán automáticamente desde el archivo `.env`.
 
 
 5. **Iniciar el Servidor:**
