@@ -60,8 +60,8 @@ const Actualizar = () => {
         ambientes: inmueble?.ambientes || '',
       });
     }
-    setSelectProvincia(inmueble.Provincia?.id)
-    setSelectPropiedad(inmueble.Propiedad?.id)
+    setSelectProvincia(inmueble?.Provincia?.id)
+    setSelectPropiedad(inmueble?.Propiedad?.id)
     setSelectImg(inmueble?.fotos?.map((foto) => ({ id: foto.id, url: foto.url })) || []);
 
   //console.log(inmueble);

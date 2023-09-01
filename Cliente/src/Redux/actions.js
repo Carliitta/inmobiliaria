@@ -26,7 +26,7 @@ export const TYPES = {
   DELETE_FOTO_SUCCESS: "DELETE_FOTO_SUCCESS",
   DELETE_FOTO_FAILURE: "DELETE_FOTO_FAILURE",
 };
- const URL_DEPLOY='https://inmobiliaria-production.up.railway.app'
+ const URL_DEPLOY='postgres://carlii:y633I5Nl4NPkOkGiTd4sSvCp2FDK65kh@dpg-cjjqqf0cfp5c738uk61g-a.oregon-postgres.render.com/inmobiliaria_yslu'
  //const URL_DEPLOY='http://localhost:3001'
 export const get_All_Inmuebles = () => {
   return async (dispatch) => {
