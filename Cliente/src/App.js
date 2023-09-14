@@ -18,8 +18,8 @@ import NotFount from "./components/notFount/NotFount";
 import { useSelector } from "react-redux";
 import PrivateRoute  from "./components/PrivateRoute"; // Import the custom hook
 import axios from 'axios';
-axios.defaults.url= 'http://localhost:3001'
-/* axios.defaults.url= 'https://inmobiliaria-production.up.railway.app' */
+//axios.defaults.url= 'http://localhost:3001'
+axios.defaults.url= 'https://inmolandia.cyclic.cloud/'
 function App() {
   return (
     <div>
