@@ -77,7 +77,7 @@ const handleLoginSuccess = (user) => {
         style={{paddingLeft:'40px'}}
             className="form-control me-2 "
             type="search"
-            placeholder="Buscar por ubicacion/localidad.."
+            placeholder="Buscar por ubicación.."
             aria-label="Search"
             value={search}
             onChange={(e)=>setSearch(e.target.value)}

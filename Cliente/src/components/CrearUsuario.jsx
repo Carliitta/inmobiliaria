@@ -79,35 +79,38 @@ const dispatch = useDispatch()
     }
   };
   
-  const Validations =(e)=>{
+  const Validations = (e) => {
     const { name, value } = e.target;
-  // correo (email)
+    // Inicializa un nuevo objeto de errores
+    const newErrors = { ...error };
+  
+    // Validación de correo (email)
     if (name === "correo") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(value)) {
-        setError({codigo:'Por favor, ingrese un correo válido'})
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Por favor, ingrese un correo válido.",
-        });
-        return;
+        newErrors.correo = "Por favor, ingrese un correo válido.";
+        // Restablece el error anterior para el correo
+        newErrors.codigo = "";
+      } else {
+        newErrors.correo = ""; // Borra el error si la validación es exitosa
       }
     }
-
-   // codigo (password)
+  
+    // Validación de código (password)
     if (name === "codigo") {
       if (value.length < 5) {
-        setError({codigo:'La contraseña debe tener al menos 5 caracteres.'})
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "La contraseña debe tener al menos 5 caracteres.",
-        });
-        return;
+        newErrors.codigo = "La contraseña debe tener al menos 5 caracteres.";
+        // Restablece el error anterior para el código
+        newErrors.correo = "";
+      } else {
+        newErrors.codigo = ""; // Borra el error si la validación es exitosa
       }
     }
-  }
+  
+    // Actualiza el estado de error
+    setError(newErrors);
+  };
+  
 
   return (
     <>
@@ -140,7 +143,7 @@ const dispatch = useDispatch()
             onChange={handleChange}
             onBlur={Validations}
           />
-
+          {error.correo && <div className="text-danger">{error.correo}</div>}
           <label htmlFor="password">Contraseña:</label>
           <input
             type={seePassword ? "text" : "password"}
@@ -158,7 +161,9 @@ const dispatch = useDispatch()
             className="absolute right-2"
           >
             {seePassword ? <BsEyeSlash /> : <BsEye />}
-          </span> <br />
+          </span>
+          {error.codigo && <div className="text-danger">{error.codigo}</div>}
+           <br />
         <Button className="mt-3" style={{backgroundColor:'black', color:"white"}} onClick={handleSubmit}>
           Registrarme
         </Button>

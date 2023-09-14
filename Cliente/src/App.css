@@ -192,11 +192,11 @@ select:hover {
 /*!----------------- Footer -------------------------*/
 @media  (max-width: 1024px) {
   footer {
-    height: 400px !important;
+    height: 350px !important;
    
   }
   .copiright {
-    margin-top: 55px;
+    margin-top: 40px;
     margin-left: 30% !important;
   }
 }

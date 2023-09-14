@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 import PrivateRoute  from "./components/PrivateRoute"; // Import the custom hook
 import axios from 'axios';
 //axios.defaults.url= 'http://localhost:3001'
-axios.defaults.url= 'https://inmolandia.cyclic.cloud/'
+axios.defaults.url= 'https://inmolandia.onrender.com'
 function App() {
   return (
     <div>

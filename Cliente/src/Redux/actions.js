@@ -27,7 +27,7 @@ export const TYPES = {
   DELETE_FOTO_FAILURE: "DELETE_FOTO_FAILURE",
 };
 
- //const URL_DEPLOY='http://localhost:3001'
+ const URL_DEPLOY='https://inmolandia.onrender.com'
 export const get_All_Inmuebles = () => {
   return async (dispatch) => {
     try {
