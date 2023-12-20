@@ -9,7 +9,7 @@ const QuienesSomos = () => {
         <Link to={"/"} style={{display :'flex', justifyContent:'center'}}>
         <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginBottom:'5px', color:'#80808096', marginTop:"3px"}}/>
     </Link>
-    <div className="info card b-3 p-2  mb-2" style={{ width: '1200px', alignItems: 'center',backgroundColor:'#ffe307cf' }}>
+    <div className="info card b-3 p-2  mb-2" style={{ width: '1200px', alignItems: 'center',backgroundColor:'rgb(255 210 7 / 52%)' }}>
       <h2 className="fw-bolder fs-3 mb-5">Quiénes somos?</h2>
       <div className=" card-body"  style={{ padding: '40px' }}>
         <p className="fs-5">

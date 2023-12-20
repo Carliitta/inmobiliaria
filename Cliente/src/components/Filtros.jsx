@@ -16,7 +16,7 @@ const Filtros = ({setPagina}) => {
   const Propiedad = useSelector((state) => state.propiedad);
   const inmuebles = useSelector((state) => state.inmuebles);
   const [filtroProv, setFiltroprov] = useState('Provincias');
-  const [filtroOpe, setFiltroOpe] = useState('Operacion');
+  const [filtroOpe, setFiltroOpe] = useState('Operación');
   const [filtroProp, setFiltroprop] = useState('Propiedad');
   const [filtroPrecio, setFiltroprecio] = useState('Precio')
   const dispatch = useDispatch();
@@ -115,7 +115,7 @@ const Filtros = ({setPagina}) => {
       </div>
       {/* Limpiar*/}
       <div style={{margin:'5px'}}>
-        <button onClick={LimpiarFiltros} className="btn  btn-sm " style={{backgroundColor:'#80808096'}}>Limpiar Filtros</button>
+        <button onClick={LimpiarFiltros} className="btn  btn-sm " style={{backgroundColor:'#e5d62473'}}>Limpiar Filtros</button>
       </div>
       
     </nav>

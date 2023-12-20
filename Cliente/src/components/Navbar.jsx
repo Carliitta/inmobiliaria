@@ -57,7 +57,7 @@ const handleLoginSuccess = (user) => {
   return (
     <>
    
-    <nav className="navbar navbar-expand-lg fixed-top p-2 " style={{backgroundColor:'#ffe307cf'}}>
+    <nav className="navbar navbar-expand-lg fixed-top p-2 " style={{backgroundColor:'rgb(255 210 7 / 52%)'}}>
       
       <div className="container-fluid ">
 
@@ -150,7 +150,7 @@ const handleLoginSuccess = (user) => {
               
                 aria-expanded="false"
               >
-                <strong className="login"> {loggedInUser? `Hola, ${loggedInUser.nombre}` : "Acceder"} <AiOutlineUser/></strong>
+                <strong className="login"> {loggedInUser? `${loggedInUser.nombre}` : "Acceder"} <AiOutlineUser/></strong>
               </Link>
               <Login isOpen={isOpen} toggle={toggle} onLoginSuccess={handleLoginSuccess} loggedInUser={loggedInUser}/>
             </li>

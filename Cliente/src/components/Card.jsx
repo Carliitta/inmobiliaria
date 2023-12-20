@@ -12,7 +12,7 @@ const Card = ({id,titulo,ubicacion,precio,fotos,provincia}) => {
           <p className="card-text fs-4">{titulo}</p>
           <p className="card-text fs-5">Usd$ {precio}</p>
           <p className="card-text fs-5">Provincia: {provincia}</p>
-          <p className="card-text fs-5">Ubicacion: {ubicacion}</p>
+          <p className="card-text fs-5">Ubicación: {ubicacion}</p>
       </div>
     </Link>
   );

@@ -21,61 +21,55 @@ const Home = () => {
   const[verPorPagina , setVerPorPagina]=useState(3)
   const maximo = Math.ceil(inmuebles?.length/verPorPagina)
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isLoading, setLoading] = useState(false);
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
   useEffect(() => {
+    // Llamada a la acción para obtener inmuebles
     dispatch(get_All_Inmuebles());
   
+  }, [dispatch, user]);
+   //console.log(inmuebles)
 
-  }, [user]);
+
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: "100vh" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar isOpen={isModalOpen} toggle={toggleModal} setPagina={setPagina} />
-    
-{/* { console.log(user)} */}
-   
       <div className="container-sm pt-1 flex-grow-1">
         <div className="row">
           {error ? (
             <Mensaje />
-          ) :inmuebles && inmuebles?.length > 0 ? (
-            inmuebles?.slice((pagina-1) * verPorPagina,(pagina-1)*verPorPagina +verPorPagina)?.map((inmueble) => (
-              <Card key={inmueble?.id}
-                id={inmueble?.id}
-                titulo={inmueble?.titulo}
-                provincia={inmueble?.Provincia?.nombre_prov}
-                ubicacion={inmueble?.ubicacion}
-                precio={inmueble?.precio}
-                fotos={inmueble?.fotos?.url ||inmueble?.fotos[0]?.url }
-              />
-            ))
-          ) : inmuebles?.length === 0 ? (
-            <div className="not-found-message mt-4 fs-4">No se encontraron inmuebles que coincidan con los filtros seleccionados.</div>
-          ) :  (
-            <div className="loadingDiv">
-              <p className="spinner"></p>
-              <p className="loadingp">Cargando...</p>
+          ) : inmuebles?.length > 0 ? (
+            inmuebles
+              ?.slice((pagina - 1) * verPorPagina, (pagina - 1) * verPorPagina + verPorPagina)
+              ?.map((inmueble) => (
+                <Card
+                  key={inmueble?.id}
+                  id={inmueble?.id}
+                  titulo={inmueble?.titulo}
+                  provincia={inmueble?.Provincia?.nombre_prov}
+                  ubicacion={inmueble?.ubicacion}
+                  precio={inmueble?.precio}
+                  fotos={inmueble?.fotos?.url || inmueble?.fotos[0]?.url}
+                />
+              ))
+          ) : (
+            <div className="not-found-message mt-4 fs-4">
+              No se encontraron inmuebles 
             </div>
-           /*  < NotFount/> */
           )}
         </div>
       </div>
       <div className="d-flex justify-content-center pt-4">
-        {/* Verifica si inmuebles existe y tiene un valor antes de evaluar la
-          condición inmuebles.length > 0. Si inmuebles es undefined o no tiene
-          valor asignado, la expresión se evaluará como false y el componente
-          Paginado no se renderizará. */}
         {inmuebles && inmuebles.length > 0 && <Paginado inmuebles={maximo} pagina={pagina} setPagina={setPagina} />}
       </div>
       <div style={{ marginTop: 'auto' }}>
-        {/* Footer */}
         <Footer />
       </div>
     </div>
   );
-        }  
+  }  
 
 export default Home;

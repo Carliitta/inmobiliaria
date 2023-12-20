@@ -1,8 +1,13 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 const { JWT_SECRET }= process.env
 //1.Se define la función generateToken que toma un objeto user como argumento.
 //2.se utiliza el método jwt.sign para firmar el token. Se pasa un objeto con los datos
 // del usuario que se incluirán en el token, en este caso, el id y el correo.
+console.log(JWT_SECRET);
+
+
  const generateToken = (user) => {
     return jwt.sign(
         {

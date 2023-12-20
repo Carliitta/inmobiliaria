@@ -75,7 +75,7 @@ const Login = ({ isOpen, toggle, onLoginSuccess, loggedInUser }) => {
       return Swal.fire({
         icon: 'error',
         title: 'Ups, ocurrio un error',
-        text: response.response.data.message,
+       /*  text: response.response.data.message, */
       })
     })
 

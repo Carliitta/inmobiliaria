@@ -111,7 +111,7 @@ const Publicar = () => {
         <BsFillArrowLeftSquareFill style={{fontSize:'35px', marginLeft:'15%' , marginTop:'5px',color:'#80808096'}}/>
     </Link>
      {/*  {console.log(selectImg)} */}
-      <form className='publicar container p-3  mt-3 mb-3 ' style={{ width: '700px', borderRadius:'20px', backgroundColor:'#ffe307cf' }} onSubmit={submitForm}>
+      <form className='publicar container p-3  mt-3 mb-3 ' style={{ width: '700px', borderRadius:'20px', backgroundColor:'rgb(255 210 7 / 52%)' }} onSubmit={submitForm}>
       <h3 className='text-center p-1 '>Formulario de publicacion</h3>
         <div className="mb-3">
           <label htmlFor="" className="form-label">Titulo</label>
@@ -183,7 +183,7 @@ const Publicar = () => {
         </div>
       
         <div className="d-grid gap-2">
-        <button id='submit' type="submit" className="btn btn-info btn-lg " style={{backgroundColor:'black', color:"white"}}>Publicar Inmueble</button>
+        <button id='submit' type="submit" className="btn btn-info btn-lg " style={{backgroundColor:'#3b3a37', color:"white"}}>Publicar Inmueble</button>
        </div>    
       </form>
     </div>

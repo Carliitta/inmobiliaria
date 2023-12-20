@@ -13,7 +13,7 @@ const { DB_USER_NAME, DB_PASSWORD, DB_NAME, DB_HOST , DATABASE_URL} = process.en
 
 
 const sequelize = new Sequelize(
-  DATABASE_URL,
+  'postgres://rhxiakxx:IfPr0uPXvDa_Zt63xar7CgCq07LfGsy4@tai.db.elephantsql.com/rhxiakxx',
   {
     host:DB_HOST,
     logging: false,

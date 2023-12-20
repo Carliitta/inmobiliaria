@@ -98,7 +98,7 @@ select {
   cursor: pointer;
 }
 select:hover {
-  background-color: #ffe307cf;
+  background-color: #e5d62473;
   color: rgb(10, 10, 10);
 }
 .input-menu {

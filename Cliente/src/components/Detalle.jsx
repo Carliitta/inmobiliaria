@@ -49,7 +49,7 @@ if(!detail){
     
     <h1 style={{textAlign:'center'}} >{detail?.titulo}</h1> 
     <div style={{display:'flex', justifyContent:'center'}}>
-      <p style={{padding:'2px',textAlign:'center', fontWeight:'bolder', fontSize:'19px', border:'solid 1px' , borderColor:'black', width:'200px', backgroundColor:'#ffe307cf'}}>Precio: Usd${detail?.precio}</p>
+      <p style={{padding:'2px',textAlign:'center', fontWeight:'bolder', fontSize:'19px', border:'solid 1px' , borderColor:'black', width:'200px', backgroundColor:'rgb(255 210 7 / 52%)'}}>Precio: Usd${detail?.precio}</p>
     </div>
     <div className="container p-2 " style={{ display:'flex', justifyContent:'center'}}>
       <div
